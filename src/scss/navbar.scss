@@ -1,0 +1,46 @@
+.nav {
+  @media (max-width: 600px) {
+    display: none;
+  }
+  user-select: none;
+  position: sticky;
+  background-color: black;
+  z-index: 100000;
+  top: 0;
+}
+.nav-selected {
+  border-bottom: 3px solid $dark-green;
+  color: $dark-green;
+}
+.nav-li {
+  transition: 0.2s ease-out;
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.93);
+    border-bottom: 3px solid $dark-green;
+    color: $dark-green;
+  }
+}
+
+// mobile
+.nav-mobile {
+  user-select: none;
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  background-color: $dark-grey;
+}
+
+.hamburger-react,
+.nav-mobile {
+  @media (min-width: 600px) {
+    display: none;
+  }
+}
+
+.hamburger-react {
+  z-index: 1000000000;
+  position: fixed !important;
+  margin-left: 10px;
+}
