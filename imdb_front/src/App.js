@@ -6,13 +6,17 @@ import MoviePage from "./pages/MoviePage";
 import moviesContext from "./context/MoviesContext";
 import { useState } from "react";
 import SearchPage from "./pages/SearchPage";
+import TopRatedMovies from "./pages/TopRatedMovies";
+import TopRatedTv from "./pages/TopRatedTv";
+import TvPage from "./pages/TvPage";
 function App() {
-  const [getMovies, setMovies] = useState([]);
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState({
+    results: [],
+  });
   // make pagination, topmovies ,toptvshows page and create homepage with popular movies/shows via btn display modal of movies and shows
+
+  // fix searched movies/tv onclick open what u been searching
   const values = {
-    getMovies,
-    setMovies,
     searchResult,
     setSearchResult,
   };
@@ -24,8 +28,11 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<MainPage />} />
+            <Route path="/TopMovies" element={<TopRatedMovies />} />
+            <Route path="/TopShows" element={<TopRatedTv />} />
             <Route path="/Login" element={<LoginPage />} />
             <Route path="/movie/:movieId" element={<MoviePage />} />
+            <Route path="/tv/:tvId" element={<TvPage />} />
             <Route path="/search/:title" element={<SearchPage />} />
           </Routes>
         </div>

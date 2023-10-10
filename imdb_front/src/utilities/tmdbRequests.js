@@ -14,7 +14,14 @@ const axiosGetData = (api, setData) => {
   axios
     .get(api, options)
     .then((response) => {
-      setData(response.data.results || response.data);
+      setData(
+        response.data || {
+          page: response.data.page,
+          results: response.data.results,
+          total_pages: response.data.total_pages,
+          total_results: response.data.total_results,
+        }
+      );
     })
     .catch((error) => console.log(error));
 };
@@ -26,11 +33,33 @@ const getPopularMovies = (setData) => {
 
 const getMovieById = (id, setData) => {
   const API_BYID = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
+
   axiosGetData(API_BYID, setData);
 };
+const getTvById = (id, setData) => {
+  const API_BYID = `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}`;
+
+  axiosGetData(API_BYID, setData);
+};
+
 const searchData = (name, setData) => {
-  const API_SEARCH = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=${API_KEY}`;
+  const API_SEARCH = `https://api.themoviedb.org/3/search/multi?query=${name}&api_key=${API_KEY}`;
   axiosGetData(API_SEARCH, setData);
 };
 
-export { getMovieById, getPopularMovies, searchData };
+const getTopMovies = (page, setData) => {
+  const API_TOP_MOVIES = ` https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}&api_key=${API_KEY}`;
+  axiosGetData(API_TOP_MOVIES, setData);
+};
+const getTopTV = (page, setData) => {
+  const API_TOP_MOVIES = `https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=${page}&api_key=${API_KEY}`;
+  axiosGetData(API_TOP_MOVIES, setData);
+};
+export {
+  getMovieById,
+  getPopularMovies,
+  searchData,
+  getTopMovies,
+  getTopTV,
+  getTvById,
+};
