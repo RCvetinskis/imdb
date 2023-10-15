@@ -1,32 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { getTopTV } from "../utilities/tmdbRequests";
+import React from "react";
+import { useLocation } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import MovieCard from "../components/SmallCard";
+import usePaginate from "../hooks/usePaginate";
 const TopRatedTv = () => {
-  //   tmdbi only gives 500 pages
-  const [toptvshows, setTopTvShows] = useState({
-    page: 1,
-    results: [],
-    total_pages: 1,
-    total_results: 1,
-  });
-
-  useEffect(() => {
-    // loads first 20 top movies
-    getTopTV(1, setTopTvShows);
-  }, []);
+  const location = useLocation();
+  const pathname = location.pathname;
+  const page = location.search.replace(/\D/g, "");
+  const data = usePaginate("tv", page, "top");
 
   return (
     <div className="top-rated-movies">
       <div className="flex flex-wrap gap-10 justify-center ">
-        {toptvshows.results.map((item) => (
+        {data.results.map((item) => (
           <MovieCard item={item} key={item.id} type={"tv"} />
         ))}
       </div>
       <Pagination
-        pageCount={500}
-        setData={setTopTvShows}
-        setAPICall={getTopTV}
+        pageCount={data.total_pages >= 500 ? 500 : data.total_pages}
+        pathname={pathname}
       />
     </div>
   );
