@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Sling as Hamburger } from "hamburger-react";
+import SearchBar from "./SearchBar";
+import mainContext from "../context/MoviesContext";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const currentLocation = useLocation();
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
+  const { user, setUser, setShowLogin } = useContext(mainContext);
 
   const defaultOptions = [
     {
@@ -30,8 +33,7 @@ const NavBar = () => {
       className: "fa-solid fa-tv",
     },
     {
-      option: "Login",
-      path: "/Login",
+      option: user ? "Logout" : "Login",
       herf: "#",
       id: Math.random() * 100,
       className: "fa-solid fa-right-to-bracket",
@@ -39,7 +41,17 @@ const NavBar = () => {
   ];
 
   const changePage = (item) => {
-    navigate(item.path);
+    if (item.option === "Login") {
+      setShowLogin(true);
+      navigate(!item.path);
+    } else if (item.option === "Logout") {
+      setUser(null);
+      localStorage.removeItem("user");
+      navigate("/");
+    } else {
+      navigate(item.path);
+    }
+
     setBurgerIsOpen(false);
   };
 
@@ -61,6 +73,7 @@ const NavBar = () => {
             {item.option}
           </li>
         ))}
+        <SearchBar />
       </ul>
 
       <Hamburger
@@ -88,6 +101,7 @@ const NavBar = () => {
               {item.option}
             </li>
           ))}
+          <SearchBar />
         </ul>
       )}
     </>

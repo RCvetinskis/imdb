@@ -1,8 +1,7 @@
 import React from "react";
 import MovieCard from "../components/SmallCard";
-import SearchBar from "../components/SearchBar";
 import useGetData from "../hooks/useGetData";
-import TMDB_API from "../utilities/APIS";
+import { TMDB_API } from "../utilities/APIS";
 
 const MainPage = () => {
   const popularMovies = TMDB_API.popular("movie");
@@ -11,7 +10,6 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
-      <SearchBar />
       <div className="flex flex-wrap gap-10 justify-center ">
         {data.results.map((item) => (
           <MovieCard item={item} key={item.id} type={"movie"} />

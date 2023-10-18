@@ -11,10 +11,11 @@ const Pagination = ({ pageCount, pathname }) => {
   return (
     <>
       <ReactPaginate
+        className="pagination-container"
         breakLabel="..."
         nextLabel="next >"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}

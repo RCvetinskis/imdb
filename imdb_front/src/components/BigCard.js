@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import TMDB_API from "../utilities/APIS";
+import { TMDB_API } from "../utilities/APIS";
 import useGetData from "../hooks/useGetData";
 const BigCard = ({ type }) => {
   const params = useParams();

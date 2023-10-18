@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TMDB_API from "../utilities/APIS";
+import { TMDB_API } from "../utilities/APIS";
 const usePaginate = (type, page, call, name) => {
   // custom usePaginate hook returns back data with pages
   // checks what call to do
@@ -30,7 +30,7 @@ const usePaginate = (type, page, call, name) => {
         );
       })
       .catch((error) => console.log(error));
-  }, [page]);
+  }, [page, name]);
 
   return data;
 };

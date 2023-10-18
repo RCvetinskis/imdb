@@ -2,12 +2,9 @@
 @mixin card-btn {
   background: linear-gradient(100deg, $dark-green 0%, $dark-grey 99%);
   color: $white-grey;
-  padding: 5px 20px;
-  border-radius: 6px;
   border: none;
   transition: 0.2s ease-out;
   box-shadow: 5px 5px 0px 0px black;
-
   &:hover {
     background: linear-gradient(360deg, $dark-grey 0%, $dark-green 99%);
     cursor: pointer;

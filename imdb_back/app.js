@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const moviesRouter = require("./routes/moviesRouter");
+const mainRouter = require("./routes/mainRouter");
 const port = process.env.DEV_PORT || 4000;
 require("dotenv").config();
 
@@ -29,4 +29,4 @@ app.use(
     methods: "GET, POST",
   })
 );
-app.use("/", moviesRouter);
+app.use("/", mainRouter);

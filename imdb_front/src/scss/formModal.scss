@@ -1,0 +1,61 @@
+.form-modal-container {
+  z-index: 1000000000000000000;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.295);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  .form-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 400px;
+    height: 50%;
+    background-color: $dark-grey;
+    border-radius: 12px;
+    // close modal btn
+    .fa-x {
+      font-size: 13px;
+      position: relative;
+      top: -4%;
+      left: 50%;
+      background-color: $dark-grey;
+      padding: 6px;
+      border-radius: 50%;
+      color: grey;
+      &:hover {
+        cursor: pointer;
+        color: white;
+      }
+    }
+    .inputs-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      gap: 5px;
+      .input-check-container {
+        display: flex;
+        gap: 5px;
+      }
+      .btn {
+        @include card-btn;
+        width: 300px;
+      }
+    }
+    .btn-register-container {
+      text-align: center;
+      background-color: black;
+      width: 100%;
+      padding: 5px 10px;
+      border-radius: 12px;
+      .btn {
+        @include card-btn;
+      }
+    }
+  }
+}
