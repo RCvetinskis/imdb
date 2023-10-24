@@ -19,6 +19,10 @@ const TMDB_API = {
 const SERVER_API = {
   register: serverEnviroment + "register",
   login: serverEnviroment + "login",
+  like: serverEnviroment + "like_list",
+  dislike: serverEnviroment + "dislike_list",
+  movies: serverEnviroment + "movies",
+  tv: serverEnviroment + "tvShows",
 };
 
 export { TMDB_API, SERVER_API };

@@ -19,13 +19,17 @@ const imdbUserSchema = new Schema({
     default:
       "https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg",
   },
-  userLikes: {
-    movies: { type: [Schema.Types.Mixed], default: [] },
-    tv: { type: [Schema.Types.Mixed], default: [] },
+  likes: {
+    category: {
+      movie: { type: [Schema.Types.Mixed], default: [] },
+      tv: { type: [Schema.Types.Mixed], default: [] },
+    },
   },
-  userDislikes: {
-    movies: { type: [Schema.Types.Mixed], default: [] },
-    tv: { type: [Schema.Types.Mixed], default: [] },
+  dislikes: {
+    category: {
+      movie: { type: [Schema.Types.Mixed], default: [] },
+      tv: { type: [Schema.Types.Mixed], default: [] },
+    },
   },
 });
 module.exports = mongoose.model("imdbUserSchema", imdbUserSchema);

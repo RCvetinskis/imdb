@@ -32,7 +32,7 @@ const Login = () => {
             setUser(response.data.data);
             localStorage.setItem("user", JSON.stringify(response.data.data));
             setShowLogin(false);
-            nav("/account");
+            nav("/Settings");
           }
         })
         .catch((error) => console.log(error));

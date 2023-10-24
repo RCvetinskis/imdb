@@ -22,10 +22,6 @@ const MovieCard = ({ item, type }) => {
           Release date: <span>{item.release_date}</span>
         </p>
       </div>
-      <div className="btns">
-        <button className="btnCard btnWatch">Watch List</button>
-        <button className="btnCard btnSeen">Seen</button>
-      </div>
     </div>
   );
 };

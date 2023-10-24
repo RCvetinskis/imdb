@@ -15,7 +15,6 @@
 }
 
 .cardImg:hover {
-  opacity: 0.7;
   cursor: pointer;
 }
 .card .cardTitle {
@@ -58,8 +57,11 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+
   padding: 10px 5px;
 }
 .btnCard {
   @include card-btn;
+  margin: 5px;
 }

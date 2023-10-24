@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import UserCard from "../../components/account/UserCard";
 import mainContext from "../../context/MoviesContext";
-const AccountPage = () => {
+const SettingsPage = () => {
   const { user } = useContext(mainContext);
   return (
     <div className="account-page">
@@ -10,4 +10,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default SettingsPage;

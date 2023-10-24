@@ -1,5 +1,5 @@
 import MainPage from "./pages/MainPage";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Navigation/NavBar";
 import { Routes, Route } from "react-router-dom";
 import MoviePage from "./pages/MoviePage";
 import moviesContext from "./context/MoviesContext";
@@ -9,8 +9,18 @@ import TopRatedMovies from "./pages/TopRatedMovies";
 import TopRatedTv from "./pages/TopRatedTv";
 import TvPage from "./pages/TvPage";
 import Login from "./components/account/Login";
-import AccountPage from "./pages/accPages/AccountPage";
+import SettingsPage from "./pages/accPages/SettingsPage";
+import LikedMoviesPage from "./pages/accPages/LikedMoviesPage";
+import LikedTvShowsPage from "./pages/accPages/LikedTvShowsPage";
 
+// add comment for liked/disliked show/movie, add personal rating,
+// create page explore"explore page will show unseen tvs, filter by rating,genre ir t.t"
+// implement modal for disliked movies/show
+// implement filter for every result from tmdbapi
+// at account settings implement changes for account, change picture,name,password,email
+// create chatbox
+// create forums
+// finish some styling with few animations
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null);
@@ -20,13 +30,12 @@ function App() {
     user,
     setUser,
   };
+  const loggedInUser = localStorage.getItem("user");
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
     }
-  }, []);
+  }, [loggedInUser]);
 
   return (
     <div>
@@ -43,7 +52,9 @@ function App() {
               <Route path="/movie/:movieId" element={<MoviePage />} />
               <Route path="/tv/:tvId" element={<TvPage />} />
               <Route path="/search/:title" element={<SearchPage />} />
-              <Route path="/account" element={<AccountPage />} />
+              <Route path="/Settings" element={<SettingsPage />} />
+              <Route path="/LikedMovies" element={<LikedMoviesPage />} />
+              <Route path="/LikedShows" element={<LikedTvShowsPage />} />
             </Routes>
           ) : (
             <Routes>

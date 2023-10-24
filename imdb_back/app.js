@@ -7,6 +7,7 @@ const mainRouter = require("./routes/mainRouter");
 const port = process.env.DEV_PORT || 4000;
 require("dotenv").config();
 
+// make showslistschema and when user likes movie add to that , in frontend display by filtering likes array
 mongoose
   .connect(process.env.MONGO_KEY)
   .then((res) => {
