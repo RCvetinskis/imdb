@@ -13,13 +13,14 @@ import SettingsPage from "./pages/accPages/SettingsPage";
 import LikedMoviesPage from "./pages/accPages/LikedMoviesPage";
 import LikedTvShowsPage from "./pages/accPages/LikedTvShowsPage";
 
-// add comment for liked/disliked show/movie, add personal rating,
-// create page explore"explore page will show unseen tvs, filter by rating,genre ir t.t"
+// add comment for liked/disliked show/movie,
 // implement modal for disliked movies/show
+// create page explore"explore page will show unseen tvs, filter by rating,genre ir t.t"
 // implement filter for every result from tmdbapi
 // at account settings implement changes for account, change picture,name,password,email
 // create chatbox
 // create forums
+// choose language
 // finish some styling with few animations
 function App() {
   const [showLogin, setShowLogin] = useState(false);

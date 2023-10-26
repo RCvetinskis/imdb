@@ -50,6 +50,25 @@ const tvShowSchema = new Schema({
     type: Number,
     required: true,
   },
+  comments: [
+    {
+      comment: { type: String, required: true },
+      user: {
+        username: { type: String, required: true },
+        avatar: { type: String, required: true },
+        userId: { type: Schema.Types.Mixed, required: true },
+      },
+    },
+    { timestamps: true },
+  ],
+  ratings: [
+    {
+      rating: { type: Number, required: true, min: 1, max: 10 },
+      user: {
+        userId: { type: Schema.Types.Mixed, required: true },
+      },
+    },
+  ],
   // Additional dynamic data field
   dynamicData: {
     type: Schema.Types.Mixed,

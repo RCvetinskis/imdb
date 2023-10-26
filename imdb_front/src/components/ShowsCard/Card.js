@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MovieCard = ({ item, type }) => {
+const Card = ({ item, type }) => {
   const imgLink = "https://image.tmdb.org/t/p/original/";
 
   return (
@@ -26,4 +26,4 @@ const MovieCard = ({ item, type }) => {
   );
 };
 
-export default MovieCard;
+export default Card;

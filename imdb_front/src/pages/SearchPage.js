@@ -1,5 +1,5 @@
 import React from "react";
-import MovieCard from "../components/SmallCard";
+import Card from "../components/ShowsCard/Card";
 import { useParams, useLocation } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import usePaginate from "../hooks/usePaginate";
@@ -15,7 +15,7 @@ const SearchPage = () => {
     <div>
       <div className="flex flex-wrap gap-10 justify-center ">
         {data.results.map((item) => (
-          <MovieCard item={item} key={item.id} type={item.media_type} />
+          <Card item={item} key={item.id} type={item.media_type} />
         ))}
       </div>
       <Pagination

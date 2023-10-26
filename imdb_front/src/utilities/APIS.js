@@ -23,6 +23,7 @@ const SERVER_API = {
   dislike: serverEnviroment + "dislike_list",
   movies: serverEnviroment + "movies",
   tv: serverEnviroment + "tvShows",
+  comment: serverEnviroment + "comment",
 };
 
 export { TMDB_API, SERVER_API };

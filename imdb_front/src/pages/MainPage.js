@@ -1,5 +1,5 @@
 import React from "react";
-import MovieCard from "../components/SmallCard";
+import Card from "../components/ShowsCard/Card";
 import useGetData from "../hooks/useGetData";
 import { TMDB_API } from "../utilities/APIS";
 
@@ -12,7 +12,7 @@ const MainPage = () => {
     <div className="main-page">
       <div className="flex flex-wrap gap-10 justify-center ">
         {data.results.map((item) => (
-          <MovieCard item={item} key={item.id} type={"movie"} />
+          <Card item={item} key={item.id} type={"movie"} />
         ))}
       </div>
     </div>

@@ -1,10 +1,9 @@
 import React from "react";
-import BigCard from "../components/BigCard";
-
+import MoreInfoCard from "../components/ShowsCard/MoreInfoCard";
 const TvPage = () => {
   return (
     <div className="tv-card-page">
-      <BigCard type={"tv"} />
+      <MoreInfoCard type={"tv"} />
     </div>
   );
 };
