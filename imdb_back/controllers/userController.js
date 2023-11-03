@@ -1,10 +1,8 @@
 const response = require("../module/sendResponse");
 const userDb = require("../Schemas/imdbUserSchema");
 const bcrypt = require("bcrypt");
-const addShow = require("../module/addShowToDb");
 const returnOne = require("../module/returnOne");
 module.exports = {
-  // fix* do not send user password to frontend
   register: async (req, res) => {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -14,24 +12,45 @@ module.exports = {
       password: hashedPassword,
     });
     await user.save();
-
-    response(res, "Registration complete", false, user);
+    response(res, "Registration complete", false);
   },
   login: async (req, res) => {
-    const { email, password } = req.body;
+    const { email } = req.body;
     const user = await userDb.findOne({ email });
-    const compare = await bcrypt.compare(password, user.password);
-    if (compare) {
-      return response(res, "Succesfully logged in", false, user);
-    }
-    return response(res, "password do not match", true);
+    req.session.user = user;
+    req.session.authorized = true;
+    return response(res, "Succesfully logged in", false, {
+      username: user.username,
+      avatar: user.avatar,
+      email: user.email,
+      _id: user._id,
+      likes: req.session.user.likes,
+      dislikes: req.session.user.dislikes,
+    });
   },
-  likeList: async (req, res) => {
+  authorized: async (req, res) => {
+    if (req.session.authorized) {
+      return response(res, "User authorized", false, {
+        username: req.session.user.username,
+        avatar: req.session.user.avatar,
+        email: req.session.user.email,
+        _id: req.session.user._id,
+        likes: req.session.user.likes,
+        dislikes: req.session.user.dislikes,
+      });
+    } else {
+      return response(res, "Unauthorized", true);
+    }
+  },
+  logout: async (req, res) => {
+    req.session.user = null;
+    req.session.authorized = false;
+    return response(res, "logout completed", true);
+  },
+  userLikeList: async (req, res) => {
     const { userId, show, category } = req.body;
     // finds user
     const user = await returnOne(userId);
-    // adds show if its not in db
-    addShow(category, show);
     // removes from disliked list
     const dislikeList = user.dislikes.category[category];
     const indexOfDislikedList = dislikeList.indexOf(show.id);
@@ -42,13 +61,11 @@ module.exports = {
     await user.save();
     return response(res, "Users like list is updated", false, user);
   },
-  dislikeList: async (req, res) => {
+  userDislikeList: async (req, res) => {
     const { userId, show, category } = req.body;
     // finds user
     const user = await returnOne(userId);
 
-    // adds show if its not in db
-    addShow(category, show);
     // removes from liked list
     const likedList = user.likes.category[category];
     const indexOfShowLikedId = likedList.indexOf(show.id);

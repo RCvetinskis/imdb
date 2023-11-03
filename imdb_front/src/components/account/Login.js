@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Input from "../Input";
-import mainContext from "../../context/MoviesContext";
+import mainContext from "../../context/MainContext";
 import Register from "./Register";
 import ErrorMsg from "./ErrorMsg";
 import { SERVER_API } from "../../utilities/APIS";
@@ -21,16 +21,21 @@ const Login = () => {
   const handleSubmit = async () => {
     if (isFormValid) {
       axios
-        .post(SERVER_API.login, {
-          email: inputData.email,
-          password: inputData.password,
-        })
+        .post(
+          SERVER_API.login,
+          {
+            email: inputData.email,
+            password: inputData.password,
+          },
+          {
+            withCredentials: true,
+          }
+        )
         .then((response) => {
           if (response.data.error) {
             setErrorMsg(response.data.message);
           } else {
             setUser(response.data.data);
-            localStorage.setItem("user", JSON.stringify(response.data.data));
             setShowLogin(false);
             nav("/Settings");
           }

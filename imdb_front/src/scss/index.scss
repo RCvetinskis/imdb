@@ -12,20 +12,35 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+// scrollbarr
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: $dark-grey;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 6px;
+}
 .container {
   max-width: 1400px;
   margin: 20px auto;
 }
-input,
-button {
-  border-radius: 6px;
-  padding: 5px 10px;
-}
-input {
-  outline: none;
-  color: black;
-}
 
-.link {
-  color: aquamarine;
+.red {
+  color: red;
+}
+.gold {
+  color: $gold;
+}
+.green {
+  color: green;
+}
+.date > span,
+.title,
+.rating {
+  font-weight: bold;
 }

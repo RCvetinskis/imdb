@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 const ErrorMsg = ({ data, setIsFormValid, type, errorMsg, setErrorMsg }) => {
   const emailValidRegex =

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { SERVER_API } from "../../utilities/APIS";
+import axios from "axios";
 const AccNav = ({
   user,
   setUser,
@@ -10,6 +11,17 @@ const AccNav = ({
 }) => {
   const navigate = useNavigate();
 
+  const handleLogOut = async () => {
+    axios.get(SERVER_API.logout, { withCredentials: true }).then((response) => {
+      if (response.data.response) {
+        console.log(response.data.error);
+      } else {
+        setUser(null);
+        navigate("/");
+        setAccMenuIsOpen(false);
+      }
+    });
+  };
   const accountOptions = [
     {
       option: "Account",
@@ -26,9 +38,7 @@ const AccNav = ({
       id: Math.random() * 100,
       className: "fa-solid fa-right-to-bracket",
       execute() {
-        setUser(null);
-        localStorage.removeItem("user");
-        setAccMenuIsOpen(false);
+        handleLogOut();
       },
     },
     {

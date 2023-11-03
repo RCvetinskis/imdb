@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import UserCard from "../../components/account/UserCard";
-import mainContext from "../../context/MoviesContext";
+import mainContext from "../../context/MainContext";
 const SettingsPage = () => {
   const { user } = useContext(mainContext);
   return (

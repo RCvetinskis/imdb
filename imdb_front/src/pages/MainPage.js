@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Card from "../components/ShowsCard/Card";
-import useGetData from "../hooks/useGetData";
 import { TMDB_API } from "../utilities/APIS";
-
+import useGenres from "../hooks/useGenres";
+import { setGenreNames } from "../utilities/setGenreNames";
 const MainPage = () => {
-  const popularMovies = TMDB_API.popular("movie");
+  const [data, setData] = useState({
+    results: [],
+  });
+  const genres = useGenres("movie");
 
-  const data = useGetData(popularMovies);
+  const getPopularMovies = async () => {
+    await axios
+      .get(TMDB_API.popular("movie"))
+      .then(async (response) => {
+        setData(response.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    getPopularMovies();
+  }, []);
+  const updatedData = setGenreNames(data, genres);
 
   return (
     <div className="main-page">
       <div className="flex flex-wrap gap-10 justify-center ">
-        {data.results.map((item) => (
+        {updatedData.results.map((item) => (
           <Card item={item} key={item.id} type={"movie"} />
         ))}
       </div>

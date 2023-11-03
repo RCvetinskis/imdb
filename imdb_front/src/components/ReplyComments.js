@@ -1,0 +1,70 @@
+import React, { useEffect } from "react";
+import axios from "axios";
+import UserInterButtons from "./UserInterButtons";
+const ReplyComments = ({
+  SERVER_API,
+  getReplyComments,
+  setGetReplyComments,
+  comment,
+  show,
+  type,
+  socket,
+  switchToComment,
+  openReplies,
+  toggleReplyInput,
+}) => {
+  useEffect(() => {
+    if (show.id) {
+      axios
+        .get(SERVER_API.get_reply_comments, {
+          params: {
+            showId: show.id,
+            category: type,
+            commentId: comment._id,
+          },
+        })
+        .then((response) => {
+          if (response.data.error) {
+          } else {
+            setGetReplyComments(response.data.data);
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [show._id, type, comment._id]);
+
+  useEffect(() => {
+    socket.on("new-reply-comments", (newComments) => {
+      setGetReplyComments(newComments);
+    });
+  }, [show._id, type, comment._id]);
+
+  return (
+    <div className="reply-comments">
+      {getReplyComments.map((replyComment) =>
+        replyComment.replying_to._id === comment._id ? (
+          <div className="reply" key={replyComment._id}>
+            <div className=" user-container">
+              <img
+                width={24}
+                height={24}
+                src={replyComment.user.avatar}
+                alt={`Image of ${replyComment.user.username}`}
+              />
+              <p className="username">{replyComment.user.username}</p>
+            </div>
+            <p className="comment">{replyComment.comment}</p>
+            <UserInterButtons
+              comment={replyComment}
+              switchToComment={switchToComment}
+              openReplies={openReplies}
+              toggleReplyInput={toggleReplyInput}
+            />
+          </div>
+        ) : null
+      )}
+    </div>
+  );
+};
+
+export default ReplyComments;

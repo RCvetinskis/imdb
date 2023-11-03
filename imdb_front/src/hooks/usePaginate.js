@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { TMDB_API } from "../utilities/APIS";
 const usePaginate = (type, page, call, name) => {
@@ -30,7 +30,7 @@ const usePaginate = (type, page, call, name) => {
         );
       })
       .catch((error) => console.log(error));
-  }, [page, name]);
+  }, [page, name, urlApi]);
 
   return data;
 };

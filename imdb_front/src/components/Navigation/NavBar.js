@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Sling as Hamburger } from "hamburger-react";
-import mainContext from "../../context/MoviesContext";
+import mainContext from "../../context/MainContext";
 import AccNav from "./AccNav";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";

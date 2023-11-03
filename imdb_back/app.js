@@ -1,13 +1,14 @@
 const express = require("express");
+const session = require("express-session");
 const app = express();
-const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const http = require("http").createServer(app);
 const mainRouter = require("./routes/mainRouter");
 const port = process.env.DEV_PORT || 4000;
 require("dotenv").config();
+require("./module/socket")(http);
 
-// make showslistschema and when user likes movie add to that , in frontend display by filtering likes array
 mongoose
   .connect(process.env.MONGO_KEY)
   .then((res) => {
@@ -17,7 +18,7 @@ mongoose
     console.log(error);
   });
 
-app.listen(port, (err) => {
+http.listen(port, (err) => {
   if (err) return console.log(err);
   console.log(`serve at http://localhost:${port}`);
 });
@@ -27,7 +28,18 @@ app.use(
   cors({
     origin: true,
     credentials: true,
-    methods: "GET, POST",
+    methods: "GET, POST,PUT,DELETE",
+  })
+);
+app.use(
+  session({
+    secret: "535ds6r64345xcas344asdsd",
+    cookie: {
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // One week in milliseconds
+    },
+    resave: false,
+    saveUninitialized: true,
   })
 );
 app.use("/", mainRouter);

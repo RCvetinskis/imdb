@@ -11,7 +11,6 @@ const handleLike = (userId, show, category, likeType, setUser) => {
       if (response.data.error) {
         console.log(response.data.message);
       } else {
-        localStorage.setItem("user", JSON.stringify(response.data.data));
         setUser(response.data.data);
       }
     })

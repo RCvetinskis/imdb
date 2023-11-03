@@ -1,0 +1,76 @@
+.comments-container {
+  button {
+    @include userBtnHover;
+  }
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 2rem;
+  .comments,
+  .reply-comments {
+    overflow: auto;
+  }
+  .comments {
+    height: 10rem;
+    padding: 1rem;
+    .reply-comments {
+      height: 5rem;
+    }
+    .btns-container {
+      border-bottom: 1px solid grey;
+      .btn,
+      i {
+        font-size: 12px;
+      }
+    }
+    .comment-container {
+      .comment {
+        padding: 0.4rem 0.5rem;
+      }
+      .user-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 5px;
+        .username {
+          font-size: 1.1rem;
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+        img {
+          border-radius: 6px;
+          width: 36px;
+          height: 36px;
+        }
+      }
+    }
+  }
+
+  .comment-input-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    textarea {
+      width: 100%;
+      padding: 0.2rem 1rem;
+      background: transparent;
+      box-shadow: 0px 2px 2px 2px #ffffff80;
+      outline: none;
+      height: 3rem;
+      resize: none;
+      &::placeholder {
+        text-transform: capitalize;
+      }
+    }
+    .btn-comment {
+      position: absolute;
+      display: inline-block;
+      font-size: 16px;
+      right: 3%;
+      rotate: (60deg);
+      bottom: 30%;
+      z-index: 10;
+    }
+  }
+}
