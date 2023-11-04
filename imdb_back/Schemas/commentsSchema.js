@@ -12,7 +12,6 @@ const commentSchema = new Schema({
     avatar: { type: String, required: true },
     userId: { type: Schema.Types.Mixed, required: true },
   },
-
   createdAt: { type: Date, default: Date.now },
   reply_comments: [
     {

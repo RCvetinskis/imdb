@@ -1,5 +1,6 @@
 const response = require("../module/sendResponse");
 const userDb = require("../Schemas/imdbUserSchema");
+const returnOne = require("../module/returnOne");
 const bcrypt = require("bcrypt");
 module.exports = {
   validateRegistration: async (req, res, next) => {
@@ -30,8 +31,9 @@ module.exports = {
     next();
   },
   validateLikeList: async (req, res, next) => {
-    const { userId, show, category } = req.body;
-    const user = await userDb.findOne({ _id: userId });
+    const { userId, showId, category } = req.body;
+    const user = await returnOne(userId);
+
     if (!user) {
       return response(res, "User not found", true);
     }
@@ -39,13 +41,19 @@ module.exports = {
       return response(res, "Invalid category", true);
     }
     const likedList = user.likes.category[category];
-    if (likedList.includes(show.id)) {
+    if (likedList.includes(showId)) {
       return response(res, "Show is already liked", true);
     }
+    const currentShow = await returnOne(showId, category);
+    const showLikes = currentShow.likes;
+    if (showLikes.includes(userId)) {
+      return response(res, "user already liked show", true);
+    }
+
     next();
   },
   validateDislikeList: async (req, res, next) => {
-    const { userId, show, category } = req.body;
+    const { userId, showId, category } = req.body;
 
     const user = await userDb.findOne({ _id: userId });
     if (!user) {
@@ -55,9 +63,15 @@ module.exports = {
       return response(res, "Invalid category", true);
     }
     const likedList = user.dislikes.category[category];
-    if (likedList.includes(show.id)) {
+    if (likedList.includes(showId)) {
       return response(res, "Show is already disliked", true);
     }
+    const currentShow = await returnOne(showId, category);
+    const showDislikes = currentShow.dislikes;
+    if (showDislikes.includes(userId)) {
+      return response(res, "user already disliked show", true);
+    }
+
     next();
   },
 };

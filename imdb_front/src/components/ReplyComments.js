@@ -9,9 +9,6 @@ const ReplyComments = ({
   show,
   type,
   socket,
-  switchToComment,
-  openReplies,
-  toggleReplyInput,
 }) => {
   useEffect(() => {
     if (show.id) {
@@ -46,20 +43,12 @@ const ReplyComments = ({
           <div className="reply" key={replyComment._id}>
             <div className=" user-container">
               <img
-                width={24}
-                height={24}
                 src={replyComment.user.avatar}
                 alt={`Image of ${replyComment.user.username}`}
               />
               <p className="username">{replyComment.user.username}</p>
             </div>
             <p className="comment">{replyComment.comment}</p>
-            <UserInterButtons
-              comment={replyComment}
-              switchToComment={switchToComment}
-              openReplies={openReplies}
-              toggleReplyInput={toggleReplyInput}
-            />
           </div>
         ) : null
       )}

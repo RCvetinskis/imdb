@@ -48,33 +48,69 @@ module.exports = {
     return response(res, "logout completed", true);
   },
   userLikeList: async (req, res) => {
-    const { userId, show, category } = req.body;
-    // finds user
+    // updates users likes and adds like too show
+    const { userId, showId, category } = req.body;
     const user = await returnOne(userId);
+    const currentShow = await returnOne(showId, category);
+
     // removes from disliked list
     const dislikeList = user.dislikes.category[category];
-    const indexOfDislikedList = dislikeList.indexOf(show.id);
-    if (dislikeList.includes(show.id)) {
+    const indexOfDislikedList = dislikeList.indexOf(showId);
+    if (dislikeList.includes(showId)) {
       dislikeList.splice(indexOfDislikedList, 1);
     }
-    user.likes.category[category].push(show.id);
+    user.likes.category[category].push(showId);
     await user.save();
-    return response(res, "Users like list is updated", false, user);
+    req.session.user = user;
+    req.session.save();
+
+    const showDislikeList = currentShow.dislikes;
+    const indexShowDislikeList = showDislikeList.indexOf(userId);
+    if (showDislikeList.includes(userId)) {
+      showDislikeList.splice(indexShowDislikeList, 1);
+    }
+    currentShow.likes.push(userId);
+    await currentShow.save();
+
+    return response(res, "Users like list is updated", false, {
+      username: req.session.user.username,
+      avatar: req.session.user.avatar,
+      email: req.session.user.email,
+      _id: req.session.user._id,
+      likes: req.session.user.likes,
+      dislikes: req.session.user.dislikes,
+    });
   },
   userDislikeList: async (req, res) => {
-    const { userId, show, category } = req.body;
-    // finds user
+    const { userId, showId, category } = req.body;
     const user = await returnOne(userId);
+    const currentShow = await returnOne(showId, category);
 
     // removes from liked list
     const likedList = user.likes.category[category];
-    const indexOfShowLikedId = likedList.indexOf(show.id);
+    const indexOfShowLikedId = likedList.indexOf(showId);
 
-    if (likedList.includes(show.id)) {
+    if (likedList.includes(showId)) {
       likedList.splice(indexOfShowLikedId, 1);
     }
-    user.dislikes.category[category].push(show.id);
+    user.dislikes.category[category].push(showId);
     await user.save();
-    return response(res, "User Dislike list is updated", false, user);
+    req.session.user = user;
+    req.session.save();
+    const showLikeList = currentShow.likes;
+    const indexShowLikeList = showLikeList.indexOf(userId);
+    if (showLikeList.includes(userId)) {
+      showLikeList.splice(indexShowLikeList, 1);
+    }
+    currentShow.dislikes.push(userId);
+    await currentShow.save();
+    return response(res, "User Dislike list is updated", false, {
+      username: req.session.user.username,
+      avatar: req.session.user.avatar,
+      email: req.session.user.email,
+      _id: req.session.user._id,
+      likes: req.session.user.likes,
+      dislikes: req.session.user.dislikes,
+    });
   },
 };

@@ -15,7 +15,7 @@ import LikedTvShowsPage from "./pages/accPages/LikedTvShowsPage";
 import { io } from "socket.io-client";
 import { SERVER_API } from "./utilities/APIS";
 import axios from "axios";
-// add comment for liked/disliked show/movie,
+// userengament add rating logic, fix displayng shows likes length
 // implement modal for disliked movies/show
 // create page explore"explore page will show unseen tvs, filter by rating,genre ir t.t"
 // implement filter for every result from tmdbapi

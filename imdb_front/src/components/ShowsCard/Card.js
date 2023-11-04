@@ -7,11 +7,7 @@ const Card = ({ item, type }) => {
   return (
     <div className="card">
       <Link to={`/${type}/${item.id}`}>
-        <img
-          src={imgLink + item.poster_path}
-          alt={item.title}
-          className="cardImg"
-        />
+        <img src={imgLink + item.poster_path} alt={item.title} />
       </Link>
 
       <div className="card-info">

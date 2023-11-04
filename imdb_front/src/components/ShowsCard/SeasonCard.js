@@ -1,37 +1,32 @@
 import React from "react";
-
+import { classNameRating } from "../../utilities/designFunctions";
 const SeasonCard = ({ season }) => {
   const imgLink = "https://image.tmdb.org/t/p/original/";
   return (
-    <div className="season">
+    <div className="season-card card">
       <div className="img-container">
         {season.poster_path && (
-          <img
-            width={200}
-            height={200}
-            src={imgLink + season.poster_path}
-            alt={season.name}
-            className="seasonImg"
-          />
+          <img src={imgLink + season.poster_path} alt={season.name} />
         )}
       </div>
-      <div className="info">
-        <p>{season.name}</p>
-        <p>
-          <span>Episodes:</span>
-          {season.episode_count}
-        </p>
-        <p className="rating">
-          <span>Rating:{season.vote_average}</span>
-        </p>
-      </div>
+      <div className="card-info">
+        <p className="title">{season.name}</p>
+        <p className="season-no">Season:{season.season_number}</p>
+        <p className="episodes">Episodes:{season.episode_count}</p>
 
-      {season.overview.length > 0 ? (
-        <div className="description">
-          {" "}
-          <span>Description:</span> {season.overview}{" "}
-        </div>
-      ) : null}
+        <p className={classNameRating(season.vote_average)}>
+          {season.vote_average?.toFixed(1)}
+        </p>
+        {season.air_date ? (
+          <p className="date">
+            Release date: <span> {season.air_date}</span>
+          </p>
+        ) : null}
+
+        {season.overview.length > 0 ? (
+          <div className="description">{season.overview} </div>
+        ) : null}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,3 @@
-const tvShowsDb = require("../Schemas/tvShowSchema");
-const moviesDb = require("../Schemas/moviesSchema");
 const response = require("../module/sendResponse");
 const returnOne = require("../module/returnOne");
 

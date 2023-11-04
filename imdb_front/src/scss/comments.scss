@@ -11,21 +11,26 @@
     overflow: auto;
   }
   .comments {
-    height: 10rem;
+    max-height: 10rem;
     padding: 1rem;
-    .reply-comments {
-      height: 5rem;
-    }
-    .btns-container {
-      border-bottom: 1px solid grey;
-      .btn,
-      i {
-        font-size: 12px;
-      }
-    }
+
     .comment-container {
+      border-bottom: 1px solid grey;
+      &:last-child {
+        border-bottom: none;
+      }
+      .btns-container {
+        .btn,
+        i {
+          font-size: 12px;
+        }
+      }
       .comment {
         padding: 0.4rem 0.5rem;
+        max-height: 8rem;
+        text-align: justify;
+        overflow: auto;
+        word-wrap: break-word;
       }
       .user-container {
         display: flex;
@@ -71,6 +76,25 @@
       rotate: (60deg);
       bottom: 30%;
       z-index: 10;
+    }
+  }
+
+  // reply comments
+
+  .reply-comments {
+    margin-left: 2rem;
+    background-color: rgba(0, 0, 0, 0.623);
+    font-size: 0.9rem;
+    .reply {
+      .user-container {
+        img {
+          width: 24px !important;
+          height: 24px !important;
+        }
+        .username {
+          font-size: 1rem;
+        }
+      }
     }
   }
 }

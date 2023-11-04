@@ -18,6 +18,8 @@ const moviesSchema = new Schema({
   },
   comments: [commentsSchema],
   ratings: [ratingsSchema],
+  likes: [Schema.Types.Mixed],
+  dislikes: [Schema.Types.Mixed],
 });
 
 module.exports = mongoose.model("moviesSchema", moviesSchema);

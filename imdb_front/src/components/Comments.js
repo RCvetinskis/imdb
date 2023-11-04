@@ -80,6 +80,7 @@ const Comments = ({ user, type, show }) => {
       setSelectedCommentForReply(commentId);
     }
   };
+
   return (
     <div className="comments-container">
       <div id="comments" className="comments" ref={commentsContainerRef}>
@@ -108,9 +109,6 @@ const Comments = ({ user, type, show }) => {
                 type={type}
                 show={show}
                 socket={socket}
-                switchToComment={switchToComment}
-                openReplies={openReplies}
-                toggleReplyInput={toggleReplyInput}
               />
             )}
             {selectedCommentForReply === comment._id ? (

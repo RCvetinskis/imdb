@@ -1,4 +1,7 @@
 .more-info-container {
+  .btn-open-seasons {
+    @include userBtnHover;
+  }
   .more-info-card {
     border-radius: 6px;
     position: relative;
@@ -38,6 +41,7 @@
         gap: 1rem;
         padding: 1rem 0;
         font-size: 1.1rem;
+
         .btn-like {
           padding: 5px 10px;
           @include userBtnHover;

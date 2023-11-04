@@ -18,6 +18,9 @@ const TMDB_API = {
   genres(type) {
     return `${enviroment}genre/${type}/list?language=en${API_KEY}`;
   },
+  videos(type, id) {
+    return `${enviroment}${type}/${id}/videos?${API_KEY}`;
+  },
 };
 const SERVER_API = {
   register: serverEnviroment + "register",

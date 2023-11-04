@@ -7,9 +7,11 @@ import UserAdjustment from "./UserAdjustment";
 import useTransferData from "../../hooks/useTrasnferData";
 import Comments from "../Comments";
 import { classNameRating } from "../../utilities/designFunctions";
+import YoutubeModal from "./YoutubeModal";
 const MoreInfoCard = ({ type }) => {
   const { user, setUser } = useContext(mainContext);
   const [showModal, setShowModal] = useState(false);
+  const [openTrailer, setOpenTrailer] = useState(false);
   const params = useParams();
   const key = Object.keys(params);
   const showId = params[key];
@@ -21,6 +23,14 @@ const MoreInfoCard = ({ type }) => {
 
   return (
     <div className="more-info-container">
+      {openTrailer && (
+        <YoutubeModal
+          type={type}
+          id={showId}
+          bgImage={imgLink + data.dynamicData.backdrop_path}
+          setOpenTrailer={setOpenTrailer}
+        />
+      )}
       <div
         className="more-info-card"
         style={{
@@ -94,27 +104,31 @@ const MoreInfoCard = ({ type }) => {
                 user={user}
                 setUser={setUser}
                 type={type}
-                show={data.dynamicData}
+                show={data}
               />
+              <button
+                onClick={() => setOpenTrailer(!openTrailer)}
+                className="play"
+              >
+                Play Trailer
+              </button>
               <Comments user={user} type={type} show={data} />
+              {data.dynamicData.seasons ? (
+                <button
+                  className="btn-open-seasons"
+                  onClick={() => setShowModal(!showModal)}
+                >
+                  Seasons:{data.dynamicData.seasons.length}
+                </button>
+              ) : null}
             </section>
           )}
         </div>
       </div>
 
       {/* modal for seasons */}
-      {data.dynamicData.seasons ? (
-        <div onClick={() => setShowModal(!showModal)} className="seasons-modal">
-          <p>
-            {" "}
-            <span>Seasons:</span>
-            {data.dynamicData.seasons.length}
-          </p>
-        </div>
-      ) : null}
-
       {showModal ? (
-        <div className="seasons-modal flex flex-wrap gap-5">
+        <div className="seasons-modal flex flex-wrap gap-5 justify-center mt-5">
           {data.dynamicData.seasons.map((season, index) => (
             <SeasonCard season={season} key={index} />
           ))}

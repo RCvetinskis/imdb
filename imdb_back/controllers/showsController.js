@@ -5,12 +5,7 @@ const returnOne = require("../module/returnOne");
 module.exports = {
   add_show: async (req, res) => {
     const { category, show } = req.body;
-    let showData;
-    if (category === "tv") {
-      showData = await tvShowsDb.findOne({ id: show.id });
-    } else if (category === "movie") {
-      showData = await moviesDb.findOne({ id: show.id });
-    }
+    let showData = await returnOne(show.id, category);
 
     if (showData) {
       return response(res.status(200), "Show has been sent", false, showData);

@@ -17,7 +17,9 @@ const tvShowSchema = new Schema({
     required: true,
   },
   comments: [commentsSchema],
-  ratins: [ratingsSchema],
+  ratings: [ratingsSchema],
+  likes: [Schema.Types.Mixed],
+  dislikes: [Schema.Types.Mixed],
 });
 
 module.exports = mongoose.model("tvShowSchema", tvShowSchema);

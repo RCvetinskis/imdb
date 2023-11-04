@@ -1,12 +1,19 @@
 import axios from "axios";
 import { SERVER_API } from "./APIS";
-const handleLike = (userId, show, category, likeType, setUser) => {
+import { throttle } from "lodash";
+const handleLike = throttle((userId, showId, category, likeType, setUser) => {
   axios
-    .post(likeType === "like" ? SERVER_API.like : SERVER_API.dislike, {
-      userId,
-      show,
-      category,
-    })
+    .post(
+      likeType === "like" ? SERVER_API.like : SERVER_API.dislike,
+      {
+        userId,
+        showId,
+        category,
+      },
+      {
+        withCredentials: true,
+      }
+    )
     .then((response) => {
       if (response.data.error) {
         console.log(response.data.message);
@@ -15,6 +22,6 @@ const handleLike = (userId, show, category, likeType, setUser) => {
       }
     })
     .catch((error) => console.log(error));
-};
+}, 1000);
 
 export { handleLike };
