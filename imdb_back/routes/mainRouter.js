@@ -18,6 +18,7 @@ const {
   add_show,
   likedMovies,
   likedTvShows,
+  totalShowLikes,
 } = require("../controllers/showsController");
 const {
   get_comments,
@@ -48,6 +49,6 @@ router.get("/get_comments", get_comments);
 router.get("/get_reply_comments", validateGetReplyComments, get_reply_comments);
 router.post("/rate", rate);
 router.post("/add_show", validateAddShow, add_show);
-// router.post("/get_show", get_show);
+router.get("/show_like_length", totalShowLikes);
 
 module.exports = router;

@@ -1,11 +1,12 @@
 @import "variables";
 @import "mixins";
 @import "index";
-@import "navbar";
-@import "searchInput";
+@import "./header/navbar.scss";
+@import "./header/header.scss";
+@import "./header/searchInput.scss";
 @import "card";
-@import "MoreInfoCard";
+@import "./moreinfocard/MoreInfoCard.scss";
+@import "./moreinfocard/youtubeModal.scss";
+@import "./moreinfocard/comments.scss";
 @import "pagination";
 @import "formModal";
-@import "comments";
-@import "youtubeModal";

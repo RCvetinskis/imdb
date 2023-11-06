@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { handePost } from "../utilities/handePost";
+import { handePost } from "../../utilities/handePost";
 
 const Comment = ({
   show,

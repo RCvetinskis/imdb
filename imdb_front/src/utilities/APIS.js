@@ -10,7 +10,7 @@ const TMDB_API = {
     return `${enviroment}${type}/${id}?${API_KEY}`;
   },
   top(type, page) {
-    return `${enviroment}${type}/top_rated?language=en-US&page=1${API_KEY}`;
+    return `${enviroment}${type}/top_rated?language=en-US&page=${page}&with_genres=28${API_KEY}`;
   },
   search(name, type, page) {
     return `${enviroment}search/${type}?query=${name}&page=${page}${API_KEY}`;
@@ -37,6 +37,7 @@ const SERVER_API = {
   get_reply_comments: serverEnviroment + "get_reply_comments",
   rate: serverEnviroment + "rate",
   add_show: serverEnviroment + "add_show",
+  show_like_length: serverEnviroment + "show_like_length",
 };
 
 export { TMDB_API, SERVER_API };

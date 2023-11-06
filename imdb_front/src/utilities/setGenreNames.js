@@ -5,10 +5,13 @@ const setGenreNames = (data, genres) => {
   }, {});
 
   const updatedData = { ...data };
-  if (updatedData.results && Array.isArray(updatedData.results)) {
+  if (updatedData.results) {
     updatedData.results.forEach((item) => {
-      if (item.genre_ids && Array.isArray(item.genre_ids)) {
-        item.genre_names = item.genre_ids.map((id) => genreMap[id]);
+      if (item.genre_ids) {
+        item.genres = item.genre_ids.map((id) => ({
+          id,
+          name: genreMap[id],
+        }));
       }
     });
   }

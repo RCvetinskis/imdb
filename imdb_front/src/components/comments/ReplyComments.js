@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import UserInterButtons from "./UserInterButtons";
+import UserInterButtons from "../UserInterButtons";
 const ReplyComments = ({
   SERVER_API,
   getReplyComments,

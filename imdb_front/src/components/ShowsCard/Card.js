@@ -12,23 +12,13 @@ const Card = ({ item, type }) => {
 
       <div className="card-info">
         <p className="title">{type === "tv" ? item.name : item.title}</p>
-        {item.genres ? (
-          <div className="genres flex flex-wrap gap-2">
-            {item.genres.map((genre) => (
-              <p key={genre.id} className="genre">
-                {genre.name}
-              </p>
-            ))}
-          </div>
-        ) : (
-          <div className="genres flex flex-wrap gap-2">
-            {item.genre_names?.map((genre, index) => (
-              <p key={index} className="genre">
-                {genre}
-              </p>
-            ))}
-          </div>
-        )}
+        <div className="genres flex flex-wrap gap-2">
+          {item.genres.map((genre) => (
+            <p key={genre?.id} className="genre">
+              {genre?.name}
+            </p>
+          ))}
+        </div>
 
         <p className={classNameRating(item.vote_average)}>
           {item.vote_average?.toFixed(1)}

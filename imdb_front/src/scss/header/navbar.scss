@@ -1,0 +1,98 @@
+.nav {
+  @media (max-width: 600px) {
+    display: none;
+  }
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: black;
+  user-select: none;
+  z-index: 100;
+}
+.nav-selected {
+  border-bottom: 3px solid $gold;
+  color: $gold;
+}
+.nav-li {
+  transition: 0.2s ease-out;
+  &:hover {
+    cursor: pointer;
+    color: $gold;
+  }
+}
+
+// mobile
+.nav-mobile {
+  user-select: none;
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  background-color: black;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  .user-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    img {
+      width: 28px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.hamburger-react,
+.nav-mobile {
+  @media (min-width: 600px) {
+    display: none;
+  }
+}
+
+.hamburger-react {
+  color: $gold;
+  z-index: 100000;
+  position: fixed !important;
+  top: 2%;
+  left: 2%;
+  &:hover {
+    color: $light-grey;
+  }
+}
+
+// account navigation
+.acc-nav {
+  background-color: black;
+  position: fixed;
+  top: 0%;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1000;
+  .close-button {
+    position: absolute;
+    top: 0%;
+    right: 4%;
+    width: 48px;
+    height: 48px;
+    font-size: 46px;
+    color: $gold;
+  }
+  .close-button:hover {
+    color: $light-grey;
+  }
+  .nav-selected {
+    border-bottom: 3px solid $gold;
+    color: $gold;
+  }
+  .nav-li {
+    transition: 0.2s ease-out;
+    &:hover {
+      cursor: pointer;
+      color: $gold;
+    }
+  }
+}

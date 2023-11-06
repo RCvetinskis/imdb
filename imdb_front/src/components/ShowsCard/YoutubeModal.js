@@ -8,7 +8,6 @@ const YoutubeModal = ({ type, id, bgImage, setOpenTrailer }) => {
     await axios
       .get(TMDB_API.videos(type, id))
       .then(async (response) => {
-        console.log(response.data);
         const youtubeData = response.data.results.find(
           (data) => data.type === "Trailer"
         );
@@ -21,6 +20,10 @@ const YoutubeModal = ({ type, id, bgImage, setOpenTrailer }) => {
   useEffect(() => {
     fetchTrailer();
   }, [type, id]);
+  const opts = {
+    height: "100%",
+    width: "100%",
+  };
 
   return (
     <div
@@ -36,6 +39,7 @@ const YoutubeModal = ({ type, id, bgImage, setOpenTrailer }) => {
             className="youtube-player"
             videoId={getVideoId.key}
             id={getVideoId.id}
+            opts={opts}
           />
         ) : (
           <div>Video is not found</div>

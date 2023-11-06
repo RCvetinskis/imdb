@@ -9,9 +9,8 @@ const Pagination = ({ pageCount, pathname }) => {
   };
 
   return (
-    <>
+    <div className="custom-pagination-container">
       <ReactPaginate
-        className="pagination-container"
         breakLabel="..."
         nextLabel="next >"
         onPageChange={handlePageClick}
@@ -19,8 +18,11 @@ const Pagination = ({ pageCount, pathname }) => {
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
+        containerClassName="pagination-container"
+        activeClassName="selected"
+        disabledClassName="disabled"
       />
-    </>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ import mainContext from "../../context/MainContext";
 import SeasonCard from "./SeasonCard";
 import UserAdjustment from "./UserAdjustment";
 import useTransferData from "../../hooks/useTrasnferData";
-import Comments from "../Comments";
+import Comments from "../comments/Comments";
 import { classNameRating } from "../../utilities/designFunctions";
 import YoutubeModal from "./YoutubeModal";
 const MoreInfoCard = ({ type }) => {
@@ -41,10 +41,9 @@ const MoreInfoCard = ({ type }) => {
           <div className="poster-info ">
             <div className="img-container">
               <img
-                width={100}
                 src={imgLink + data.dynamicData.poster_path}
                 alt={data.dynamicData.title}
-                className="cardImg"
+                className="card-img"
               />
             </div>
             <div className="general-info">
@@ -94,10 +93,14 @@ const MoreInfoCard = ({ type }) => {
               ) : (
                 <></>
               )}
+              <div className="description">{data.dynamicData.overview}</div>
             </div>
           </div>
 
-          <div className="description">{data.dynamicData.overview}</div>
+          <button onClick={() => setOpenTrailer(!openTrailer)} className="play">
+            <i className="fa-brands fa-youtube"></i>
+          </button>
+
           {user && (
             <section className="user-adjustment">
               <UserAdjustment
@@ -106,12 +109,7 @@ const MoreInfoCard = ({ type }) => {
                 type={type}
                 show={data}
               />
-              <button
-                onClick={() => setOpenTrailer(!openTrailer)}
-                className="play"
-              >
-                Play Trailer
-              </button>
+
               <Comments user={user} type={type} show={data} />
               {data.dynamicData.seasons ? (
                 <button

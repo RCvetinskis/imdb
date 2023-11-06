@@ -3,37 +3,72 @@
     @include userBtnHover;
   }
   .more-info-card {
+    min-height: 80vh;
     border-radius: 6px;
     position: relative;
     box-shadow: 1px 4px 8px 1px #ffffff59;
     padding: 3rem;
     background-repeat: no-repeat;
     background-size: cover;
+
     &::before {
       position: absolute;
       content: "";
       top: 0;
       left: 0;
-      background-color: rgba(0, 0, 0, 0.582);
+      background-color: $transperent-black;
       width: 100%;
       height: 100%;
       pointer-events: none;
     }
     .card-container {
-      display: grid;
-      gap: 0.5rem;
       position: relative;
       z-index: 1;
-      .general-info {
-        color: $gold;
-      }
-      .title {
-        color: #fff;
+
+      .poster-info {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 200px 2fr;
+        grid-template-areas:
+          "img general general"
+          "img desc desc"
+          "img desc desc";
+        @media (max-width: 600px) {
+          grid-template-areas:
+            "img img img"
+            "general general general"
+            "desc desc desc";
+        }
+        .img-container {
+          grid-area: img;
+          img {
+            border-radius: 6px;
+          }
+        }
+        .description {
+          color: #fff;
+          grid-area: desc;
+        }
+        .general-info {
+          color: $gold;
+          grid-area: general;
+          .title {
+            color: #fff;
+          }
+        }
       }
     }
-    .poster-info {
-      display: flex;
-      gap: 1rem;
+    .play {
+      margin-top: 10px;
+      width: 50px;
+      transition: scale, 0.1s, ease-in-out;
+      i {
+        color: red;
+        font-size: 36px;
+        &:hover {
+          scale: 0.9;
+        }
+      }
     }
     .user-adjustment {
       .btns-container {

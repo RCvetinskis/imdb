@@ -36,4 +36,20 @@ module.exports = {
       return response(res, "No shows are fround for the provided ids", true);
     }
   },
+  totalShowLikes: async (req, res) => {
+    const showId = Number(req.query.showId);
+    const category = req.query.category;
+    const currentShow = await returnOne(showId, category);
+    if (currentShow && currentShow.likes) {
+      return res.send({
+        message: "show likes length",
+        error: false,
+        data: {
+          likes: currentShow.likes.length,
+          dislikes: currentShow.dislikes.length,
+        },
+      });
+    }
+    return response(res, "show not found", true);
+  },
 };

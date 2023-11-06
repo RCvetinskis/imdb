@@ -1,5 +1,5 @@
 import React from "react";
-import SearchBar from "../SearchBar";
+
 const DesktopNav = ({
   defaultOptions,
   handleNav,
@@ -9,13 +9,12 @@ const DesktopNav = ({
 }) => {
   return (
     <ul className="flex justify-between p-5 nav">
-      <SearchBar />
       {defaultOptions.map((item, index) => (
         <li
           key={index}
           onClick={() => handleNav(item)}
           className={`${
-            currentLocation.pathname === item.path
+            currentLocation.pathname + currentLocation.search === item.path
               ? "nav-selected nav-li"
               : "nav-li"
           } `}
@@ -26,6 +25,7 @@ const DesktopNav = ({
               onClick={() => setAccMenuIsOpen(true)}
             >
               <img
+                style={{ borderRadius: "50%" }}
                 width={34}
                 height={34}
                 src={user.avatar}

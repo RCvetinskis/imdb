@@ -12,6 +12,7 @@ const NavBar = () => {
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const { user, setUser, setShowLogin } = useContext(mainContext);
   const [accMenuIsOpen, setAccMenuIsOpen] = useState(false);
+
   const defaultOptions = [
     {
       option: "Home",
@@ -23,7 +24,7 @@ const NavBar = () => {
     },
     {
       option: "Top Movies",
-      path: "/TopMovies",
+      path: `/top_movies?page=1`,
       className: "fa-solid fa-film",
       execute() {
         navigate(this.path);
@@ -31,7 +32,7 @@ const NavBar = () => {
     },
     {
       option: "Top Shows",
-      path: "/TopShows",
+      path: `/top_shows?page=1`,
       className: "fa-solid fa-tv",
       execute() {
         navigate(this.path);
@@ -67,7 +68,6 @@ const NavBar = () => {
       <Hamburger
         rounded
         direction="right"
-        color="#3c6e71"
         toggled={burgerIsOpen}
         toggle={setBurgerIsOpen}
       />

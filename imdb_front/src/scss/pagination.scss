@@ -1,5 +1,32 @@
-.pagination-container {
+.custom-pagination-container {
+  margin-top: 20px;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.pagination-container {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+
+.pagination-container li {
+  background-color: black;
+  box-shadow: 7px 8px 6px -3px $gold;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: $gold;
+}
+
+.pagination-container li.selected {
+  box-shadow: 7px 8px 6px -3px $light-grey;
+  color: $light-grey;
+  font-weight: bold;
+}
+
+.pagination-container li.disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }

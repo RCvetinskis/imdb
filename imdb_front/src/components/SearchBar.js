@@ -10,8 +10,17 @@ const SearchBar = () => {
   };
   return (
     <div className="search-container">
-      <input className="search-input" ref={inputRef} type="text" />
-      <button onClick={() => handleSearchClick()} className="btn bg-teal-800">
+      <div className="input-container">
+        <input
+          placeholder="Search"
+          className="search-input"
+          ref={inputRef}
+          type="text"
+        />
+        <i className="fa-solid fa-magnifying-glass"></i>
+      </div>
+
+      <button onClick={() => handleSearchClick()} className="search-btn">
         Search
       </button>
     </div>

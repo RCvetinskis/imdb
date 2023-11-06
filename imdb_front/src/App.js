@@ -1,12 +1,11 @@
 import MainPage from "./pages/MainPage";
-import NavBar from "./components/Navigation/NavBar";
+
 import { Routes, Route } from "react-router-dom";
 import MoviePage from "./pages/MoviePage";
 import moviesContext from "./context/MainContext";
 import React, { useState, useEffect } from "react";
 import SearchPage from "./pages/SearchPage";
-import TopRatedMovies from "./pages/TopRatedMovies";
-import TopRatedTv from "./pages/TopRatedTv";
+import TopRated from "./pages/TopRated";
 import TvPage from "./pages/TvPage";
 import Login from "./components/account/Login";
 import SettingsPage from "./pages/accPages/SettingsPage";
@@ -15,7 +14,9 @@ import LikedTvShowsPage from "./pages/accPages/LikedTvShowsPage";
 import { io } from "socket.io-client";
 import { SERVER_API } from "./utilities/APIS";
 import axios from "axios";
-// userengament add rating logic, fix displayng shows likes length
+import Header from "./components/Header";
+// userengament add rating logic
+// remove selected genre, fix pagination if not possible create custom
 // implement modal for disliked movies/show
 // create page explore"explore page will show unseen tvs, filter by rating,genre ir t.t"
 // implement filter for every result from tmdbapi
@@ -59,27 +60,26 @@ function App() {
     <div>
       <moviesContext.Provider value={values}>
         {showLogin && <Login />}
-        <NavBar />
+        <Header />
         <div className="container m-5">
           {user ? (
             <Routes>
               <Route path="/" element={<MainPage />} />
-              <Route path="/TopMovies" element={<TopRatedMovies />} />
-              <Route path="/TopShows" element={<TopRatedTv />} />
-
+              <Route path="/top_movies" element={<TopRated type={"movie"} />} />
+              <Route path="/top_shows" element={<TopRated type={"tv"} />} />
               <Route path="/movie/:movieId" element={<MoviePage />} />
               <Route path="/tv/:tvId" element={<TvPage />} />
               <Route path="/search/:title" element={<SearchPage />} />
-              <Route path="/Settings" element={<SettingsPage />} />
-              <Route path="/LikedMovies" element={<LikedMoviesPage />} />
-              <Route path="/LikedShows" element={<LikedTvShowsPage />} />
+
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/liked_movies" element={<LikedMoviesPage />} />
+              <Route path="/liked_shows" element={<LikedTvShowsPage />} />
             </Routes>
           ) : (
             <Routes>
               <Route path="/" element={<MainPage />} />
-              <Route path="/TopMovies" element={<TopRatedMovies />} />
-              <Route path="/TopShows" element={<TopRatedTv />} />
-
+              <Route path="/top_movies" element={<TopRated type={"movie"} />} />
+              <Route path="/top_shows" element={<TopRated type={"tv"} />} />
               <Route path="/movie/:movieId" element={<MoviePage />} />
               <Route path="/tv/:tvId" element={<TvPage />} />
               <Route path="/search/:title" element={<SearchPage />} />

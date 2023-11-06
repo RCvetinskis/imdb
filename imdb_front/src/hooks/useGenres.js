@@ -11,7 +11,7 @@ const useGenres = (type) => {
   };
   useEffect(() => {
     getGeneres();
-  }, []);
+  }, [type]);
   return genres;
 };
 

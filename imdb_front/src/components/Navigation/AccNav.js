@@ -51,7 +51,7 @@ const AccNav = ({
     },
     {
       option: "Liked Movies",
-      path: "/LikedMovies",
+      path: "/liked_movies",
       className: "fa-solid fa-film",
       execute() {
         navigate(this.path);
@@ -59,7 +59,7 @@ const AccNav = ({
     },
     {
       option: "Liked Shows",
-      path: "/LikedShows",
+      path: "/liked_shows",
 
       className: "fa-solid fa-tv",
       execute() {
@@ -68,7 +68,7 @@ const AccNav = ({
     },
     {
       option: "Already Seen",
-      path: "/AlreadySeen",
+      path: "/already_seen",
       className: "fa-solid fa-film",
       execute() {
         navigate(this.path);
@@ -78,6 +78,7 @@ const AccNav = ({
 
   const handleAccNav = (item) => {
     item.execute();
+    setAccMenuIsOpen(false);
   };
 
   return (
@@ -85,7 +86,7 @@ const AccNav = ({
       {accountOptions.map((item, index) => (
         <li
           className={`${
-            currentLocation.pathname === item.path
+            currentLocation.pathname + currentLocation.search === item.path
               ? "nav-selected nav-li"
               : "nav-li"
           } `}
@@ -93,10 +94,7 @@ const AccNav = ({
           onClick={() => handleAccNav(item)}
         >
           {item.option === "Account" ? (
-            <div className="custom-burger">
-              <span></span>
-              <span></span>
-            </div>
+            <button className="close-button">&times;</button>
           ) : (
             <> {item.option}</>
           )}

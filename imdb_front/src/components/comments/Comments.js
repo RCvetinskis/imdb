@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { SERVER_API } from "../utilities/APIS";
+import { SERVER_API } from "../../utilities/APIS";
 import axios from "axios";
 import Comment from "./Comment";
 import ReplyComments from "./ReplyComments";
-import mainContext from "../context/MainContext";
-import UserInterButtons from "./UserInterButtons";
+import mainContext from "../../context/MainContext";
+import UserInterButtons from "../UserInterButtons";
 const Comments = ({ user, type, show }) => {
   const { socket } = useContext(mainContext);
   const [getComments, setGetComments] = useState([]);
