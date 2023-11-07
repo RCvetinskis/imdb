@@ -44,3 +44,7 @@ body {
 .rating {
   font-weight: bold;
 }
+.selected {
+  border-bottom: 3px solid $gold;
+  color: $gold;
+}

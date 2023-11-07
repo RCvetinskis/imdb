@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import Card from "../components/ShowsCard/Card";
-import usePaginate from "../hooks/usePaginate";
 import useGenres from "../hooks/useGenres";
 import { setGenreNames } from "../utilities/setGenreNames";
 import Genres from "../components/Genres";
+import useGetDataTMDB from "../hooks/useGetDataTMDB";
+import { TMDB_API } from "../utilities/APIS";
 const TopRated = ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
   const page = location.search.replace(/\D/g, "");
-  const data = usePaginate(type, page, "top");
+  const API = TMDB_API.top(type, page);
+  const data = useGetDataTMDB(API, page);
   const genres = useGenres(type);
-  const dataWithGenres = setGenreNames(data, genres);
+  const dataToDisplayGenres = setGenreNames(data, genres, true);
   const [selectedGenres, setSelectedGenres] = useState([]);
 
   useEffect(() => {
@@ -26,12 +28,12 @@ const TopRated = ({ type }) => {
     }
   }, [pathname]);
 
-  let filterData = dataWithGenres;
+  let filterData = data;
 
   if (selectedGenres.length > 0) {
     filterData = {
-      ...dataWithGenres,
-      results: dataWithGenres.results.filter((show) =>
+      ...data,
+      results: data.results.filter((show) =>
         selectedGenres.every((genreId) => show.genre_ids.includes(genreId))
       ),
     };
@@ -40,7 +42,8 @@ const TopRated = ({ type }) => {
   return (
     <div className="top-rated-movies">
       <Genres
-        data={dataWithGenres.results}
+        data={dataToDisplayGenres.results}
+        selectedGenres={selectedGenres}
         setSelectedGenres={setSelectedGenres}
       />
       <div className="flex flex-wrap gap-10 justify-center ">
@@ -49,9 +52,7 @@ const TopRated = ({ type }) => {
         ))}
       </div>
       <Pagination
-        pageCount={
-          dataWithGenres.total_pages >= 500 ? 500 : dataWithGenres.total_pages
-        }
+        pageCount={data.total_pages >= 500 ? 500 : data.total_pages}
         pathname={pathname}
       />
     </div>

@@ -2,14 +2,16 @@ import React from "react";
 import Card from "../components/ShowsCard/Card";
 import { useParams, useLocation } from "react-router-dom";
 import Pagination from "../components/Pagination";
-import usePaginate from "../hooks/usePaginate";
+import { TMDB_API } from "../utilities/APIS";
+import useGetDataTMDB from "../hooks/useGetDataTMDB";
+
 const SearchPage = () => {
   const params = useParams();
-
   const location = useLocation();
   const pathname = location.pathname;
   const page = location.search.replace(/\D/g, "");
-  const data = usePaginate("multi", page ? page : 1, "search", params.title);
+  const API = TMDB_API.search(params.title, "multi", page ? page : 1);
+  const data = useGetDataTMDB(API, page);
 
   return (
     <div>

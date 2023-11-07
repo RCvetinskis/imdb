@@ -1,7 +1,4 @@
 .more-info-container {
-  .btn-open-seasons {
-    @include userBtnHover;
-  }
   .more-info-card {
     min-height: 80vh;
     border-radius: 6px;
@@ -24,7 +21,6 @@
     .card-container {
       position: relative;
       z-index: 1;
-
       .poster-info {
         display: grid;
         gap: 1rem;
@@ -97,6 +93,9 @@
           }
         }
       }
+    }
+    .btn-open-seasons {
+      @include userBtnHover;
     }
   }
 }

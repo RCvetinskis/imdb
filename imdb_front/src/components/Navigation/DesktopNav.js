@@ -15,7 +15,7 @@ const DesktopNav = ({
           onClick={() => handleNav(item)}
           className={`${
             currentLocation.pathname + currentLocation.search === item.path
-              ? "nav-selected nav-li"
+              ? "selected nav-li"
               : "nav-li"
           } `}
         >

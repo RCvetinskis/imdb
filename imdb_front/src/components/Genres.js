@@ -1,42 +1,58 @@
 import React from "react";
 
-const Genres = ({ data, setSelectedGenres }) => {
+const Genres = ({ data, selectedGenres, setSelectedGenres }) => {
   const genres = [];
-  //   implement x button to clear selected genre
+
   data.forEach((show) => {
     show.genres.forEach((genre) => {
       const genreId = genre.id;
       const existingGenre = genres.find((existing) => existing.id === genreId);
-
       if (!existingGenre) {
         genres.push({ id: genreId, name: genre.name });
       }
     });
   });
 
+  const addGenre = (genreId) => {
+    setSelectedGenres((prevSelectedGenres) => [...prevSelectedGenres, genreId]);
+  };
+
+  const removeGenre = (genreId) => {
+    setSelectedGenres((prevSelectedGenres) =>
+      prevSelectedGenres.filter((selectedGenre) => selectedGenre !== genreId)
+    );
+  };
+
   return (
     <div className="genres-container flex flex-wrap gap-5 justify-center ">
       {genres.map((genre) => (
         <div
-          className="genre"
-          key={genre.id}
-          onClick={() =>
-            setSelectedGenres((prevSelectedGenres) => [
-              ...prevSelectedGenres,
-              genre.id,
-            ])
+          className={
+            selectedGenres.includes(genre.id) ? "genre selected" : "genre"
           }
+          key={genre.id}
+          onClick={() => {
+            if (selectedGenres.includes(genre.id)) {
+              removeGenre(genre.id);
+            } else {
+              addGenre(genre.id);
+            }
+          }}
         >
-          {genre.name}
+          <p> {genre.name}</p>
+          {selectedGenres.includes(genre.id) ? (
+            <button
+              className="close-current"
+              onClick={() => removeGenre(genre.id)}
+            >
+              x
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       ))}
-
-      <button
-        onClick={() => setSelectedGenres([])}
-        style={{ fontSize: "16px", marginLeft: "5px" }}
-      >
-        Clear
-      </button>
+      <button onClick={() => setSelectedGenres([])}>Clear All</button>
     </div>
   );
 };

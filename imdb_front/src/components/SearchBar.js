@@ -5,7 +5,7 @@ const SearchBar = () => {
   const nav = useNavigate();
 
   const handleSearchClick = () => {
-    nav(`search/${inputRef.current.value}`);
+    nav(`search/${inputRef.current.value}?page=1`);
     inputRef.current.value = "";
   };
   return (

@@ -5,7 +5,7 @@ const setGenreNames = (data, genres) => {
   }, {});
 
   const updatedData = { ...data };
-  if (updatedData.results) {
+  if (Array.isArray(updatedData.results)) {
     updatedData.results.forEach((item) => {
       if (item.genre_ids) {
         item.genres = item.genre_ids.map((id) => ({
@@ -14,6 +14,13 @@ const setGenreNames = (data, genres) => {
         }));
       }
     });
+  } else if (updatedData) {
+    if (updatedData.genre_ids) {
+      updatedData.genres = updatedData.genre_ids.map((id) => ({
+        id,
+        name: genreMap[id],
+      }));
+    }
   }
 
   return updatedData;

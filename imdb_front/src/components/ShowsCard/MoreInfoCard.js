@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { TMDB_API } from "../../utilities/APIS";
 import mainContext from "../../context/MainContext";
@@ -10,7 +10,8 @@ import { classNameRating } from "../../utilities/designFunctions";
 import YoutubeModal from "./YoutubeModal";
 const MoreInfoCard = ({ type }) => {
   const { user, setUser } = useContext(mainContext);
-  const [showModal, setShowModal] = useState(false);
+  const [seasonsModal, setSeasonsModal] = useState(false);
+  const seasonsModalRef = useRef(null);
   const [openTrailer, setOpenTrailer] = useState(false);
   const params = useParams();
   const key = Object.keys(params);
@@ -20,6 +21,15 @@ const MoreInfoCard = ({ type }) => {
   const TMBDB_API_BY_ID = TMDB_API.by_id(type, showId);
   const data = useTransferData(TMBDB_API_BY_ID, type);
   const imgLink = "https://image.tmdb.org/t/p/original/";
+
+  const scrollToShowSeasons = () => {
+    if (seasonsModalRef.current) {
+      seasonsModalRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
 
   return (
     <div className="more-info-container">
@@ -97,9 +107,27 @@ const MoreInfoCard = ({ type }) => {
             </div>
           </div>
 
-          <button onClick={() => setOpenTrailer(!openTrailer)} className="play">
-            <i className="fa-brands fa-youtube"></i>
-          </button>
+          <div className="buttons-container flex flex-wrap my-3 gap-2 items-center">
+            <button
+              onClick={() => setOpenTrailer(!openTrailer)}
+              className="play"
+            >
+              <i className="fa-brands fa-youtube"></i>
+            </button>
+            {data.dynamicData.seasons ? (
+              <button
+                className="btn-open-seasons h-4"
+                onClick={() => {
+                  setSeasonsModal(!seasonsModal);
+                  if (!seasonsModal) {
+                    setTimeout(scrollToShowSeasons, 0);
+                  }
+                }}
+              >
+                Seasons:{data.dynamicData.seasons.length}
+              </button>
+            ) : null}
+          </div>
 
           {user && (
             <section className="user-adjustment">
@@ -111,22 +139,17 @@ const MoreInfoCard = ({ type }) => {
               />
 
               <Comments user={user} type={type} show={data} />
-              {data.dynamicData.seasons ? (
-                <button
-                  className="btn-open-seasons"
-                  onClick={() => setShowModal(!showModal)}
-                >
-                  Seasons:{data.dynamicData.seasons.length}
-                </button>
-              ) : null}
             </section>
           )}
         </div>
       </div>
 
       {/* modal for seasons */}
-      {showModal ? (
-        <div className="seasons-modal flex flex-wrap gap-5 justify-center mt-5">
+      {seasonsModal ? (
+        <div
+          className="seasons-modal flex flex-wrap gap-5 justify-center mt-5"
+          ref={seasonsModalRef}
+        >
           {data.dynamicData.seasons.map((season, index) => (
             <SeasonCard season={season} key={index} />
           ))}

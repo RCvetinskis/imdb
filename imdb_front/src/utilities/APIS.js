@@ -6,11 +6,18 @@ const TMDB_API = {
   popular(type) {
     return `${enviroment}${type}/popular?language=en-US?${API_KEY}`;
   },
+  trending(type) {
+    return `${enviroment}/trending/${type}/day?language=en-US?${API_KEY}`;
+  },
+  now_playing: `${enviroment}/movie/now_playing?language=en-US?${API_KEY}`,
+  upcoming: `${enviroment}/movie/upcoming?language=en-US?${API_KEY}`,
+  airing_today: `${enviroment}/tv/airing_today?language=en-US?${API_KEY}`,
+  on_the_air: `${enviroment}/tv/on_the_air?language=en-US?${API_KEY}`,
   by_id(type, id) {
     return `${enviroment}${type}/${id}?${API_KEY}`;
   },
   top(type, page) {
-    return `${enviroment}${type}/top_rated?language=en-US&page=${page}&with_genres=28${API_KEY}`;
+    return `${enviroment}${type}/top_rated?language=en-US&page=${page}${API_KEY}`;
   },
   search(name, type, page) {
     return `${enviroment}search/${type}?query=${name}&page=${page}${API_KEY}`;

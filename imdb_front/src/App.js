@@ -1,23 +1,17 @@
-import MainPage from "./pages/MainPage";
-
 import { Routes, Route } from "react-router-dom";
-import MoviePage from "./pages/MoviePage";
 import moviesContext from "./context/MainContext";
 import React, { useState, useEffect } from "react";
-import SearchPage from "./pages/SearchPage";
-import TopRated from "./pages/TopRated";
-import TvPage from "./pages/TvPage";
-import Login from "./components/account/Login";
-import SettingsPage from "./pages/accPages/SettingsPage";
-import LikedMoviesPage from "./pages/accPages/LikedMoviesPage";
-import LikedTvShowsPage from "./pages/accPages/LikedTvShowsPage";
 import { io } from "socket.io-client";
 import { SERVER_API } from "./utilities/APIS";
 import axios from "axios";
+import Login from "./components/account/Login";
 import Header from "./components/Header";
+import { routes, accountRoutes, rootRoute } from "./utilities/routes";
+
 // userengament add rating logic
-// remove selected genre, fix pagination if not possible create custom
 // implement modal for disliked movies/show
+// discover page
+// create episode page
 // create page explore"explore page will show unseen tvs, filter by rating,genre ir t.t"
 // implement filter for every result from tmdbapi
 // at account settings implement changes for account, change picture,name,password,email
@@ -62,29 +56,18 @@ function App() {
         {showLogin && <Login />}
         <Header />
         <div className="container m-5">
-          {user ? (
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/top_movies" element={<TopRated type={"movie"} />} />
-              <Route path="/top_shows" element={<TopRated type={"tv"} />} />
-              <Route path="/movie/:movieId" element={<MoviePage />} />
-              <Route path="/tv/:tvId" element={<TvPage />} />
-              <Route path="/search/:title" element={<SearchPage />} />
-
-              <Route path="/settings" element={<SettingsPage />} />
-              <Route path="/liked_movies" element={<LikedMoviesPage />} />
-              <Route path="/liked_shows" element={<LikedTvShowsPage />} />
-            </Routes>
-          ) : (
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/top_movies" element={<TopRated type={"movie"} />} />
-              <Route path="/top_shows" element={<TopRated type={"tv"} />} />
-              <Route path="/movie/:movieId" element={<MoviePage />} />
-              <Route path="/tv/:tvId" element={<TvPage />} />
-              <Route path="/search/:title" element={<SearchPage />} />
-            </Routes>
-          )}
+          <Routes>
+            {(user
+              ? [...accountRoutes, ...routes, rootRoute]
+              : [...routes, rootRoute]
+            ).map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.element}
+              />
+            ))}
+          </Routes>
         </div>
       </moviesContext.Provider>
     </div>

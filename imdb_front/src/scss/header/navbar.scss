@@ -9,10 +9,7 @@
   user-select: none;
   z-index: 100;
 }
-.nav-selected {
-  border-bottom: 3px solid $gold;
-  color: $gold;
-}
+
 .nav-li {
   transition: 0.2s ease-out;
   &:hover {
@@ -84,10 +81,7 @@
   .close-button:hover {
     color: $light-grey;
   }
-  .nav-selected {
-    border-bottom: 3px solid $gold;
-    color: $gold;
-  }
+
   .nav-li {
     transition: 0.2s ease-out;
     &:hover {

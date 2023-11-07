@@ -4,9 +4,11 @@
 @import "./header/navbar.scss";
 @import "./header/header.scss";
 @import "./header/searchInput.scss";
+@import "homePage.scss";
 @import "card";
 @import "./moreinfocard/MoreInfoCard.scss";
 @import "./moreinfocard/youtubeModal.scss";
 @import "./moreinfocard/comments.scss";
 @import "pagination";
 @import "formModal";
+@import "genres";

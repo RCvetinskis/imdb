@@ -1,0 +1,13 @@
+.genres-container {
+  margin-bottom: 20px;
+  .genre {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    .close-current {
+      padding: 0 3px;
+      font-size: 14px;
+    }
+  }
+}
