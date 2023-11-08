@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const useGetDataTMDB = (API, page) => {
+const useGetDataTMDB = (API, page, apiParams) => {
   const [data, setData] = useState({
     results: [],
     page: 0,
@@ -12,8 +12,9 @@ const useGetDataTMDB = (API, page) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setData((prevData) => ({ ...prevData, isLoading: false }));
       await axios
-        .get(`${API}&page=${page}`)
+        .get(API)
         .then(async (response) => {
           setData(
             response.data || {
@@ -32,7 +33,7 @@ const useGetDataTMDB = (API, page) => {
     };
     setData((prevData) => ({ ...prevData, isLoading: false }));
     fetchData();
-  }, [API, page]);
+  }, [API, page, apiParams]);
 
   return data;
 };

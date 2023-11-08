@@ -10,6 +10,7 @@ import { routes, accountRoutes, rootRoute } from "./utilities/routes";
 
 // userengament add rating logic
 // implement modal for disliked movies/show
+// add loading before states updates
 // discover page
 // create episode page
 // create page explore"explore page will show unseen tvs, filter by rating,genre ir t.t"

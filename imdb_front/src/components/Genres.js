@@ -1,17 +1,22 @@
 import React from "react";
 
-const Genres = ({ data, selectedGenres, setSelectedGenres }) => {
-  const genres = [];
-
-  data.forEach((show) => {
-    show.genres.forEach((genre) => {
-      const genreId = genre.id;
-      const existingGenre = genres.find((existing) => existing.id === genreId);
-      if (!existingGenre) {
-        genres.push({ id: genreId, name: genre.name });
-      }
+const Genres = ({ data, selectedGenres, setSelectedGenres, genres }) => {
+  let currentPageGenres = [];
+  if (!genres) {
+    data.forEach((show) => {
+      show.genres.forEach((genre) => {
+        const genreId = genre.id;
+        const existingGenre = currentPageGenres.find(
+          (existing) => existing.id === genreId
+        );
+        if (!existingGenre) {
+          currentPageGenres.push({ id: genreId, name: genre.name });
+        }
+      });
     });
-  });
+  } else {
+    currentPageGenres = genres;
+  }
 
   const addGenre = (genreId) => {
     setSelectedGenres((prevSelectedGenres) => [...prevSelectedGenres, genreId]);
@@ -25,7 +30,7 @@ const Genres = ({ data, selectedGenres, setSelectedGenres }) => {
 
   return (
     <div className="genres-container flex flex-wrap gap-5 justify-center ">
-      {genres.map((genre) => (
+      {currentPageGenres.map((genre) => (
         <div
           className={
             selectedGenres.includes(genre.id) ? "genre selected" : "genre"

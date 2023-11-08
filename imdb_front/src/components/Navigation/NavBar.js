@@ -23,6 +23,22 @@ const NavBar = () => {
       },
     },
     {
+      option: "Discover Movie",
+      path: "/discover/movie",
+      className: "fa-brands fa-cc-discover",
+      execute() {
+        navigate(this.path);
+      },
+    },
+    {
+      option: "Discover Tv",
+      path: "/discover/tv",
+      className: "fa-brands fa-cc-discover",
+      execute() {
+        navigate(this.path);
+      },
+    },
+    {
       option: "Top Movies",
       path: `/top_movies?page=1`,
       className: "fa-solid fa-film",

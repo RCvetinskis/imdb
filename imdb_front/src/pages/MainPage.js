@@ -16,7 +16,6 @@ const MainPage = () => {
     upcoming: TMDB_API.upcoming,
   };
 
-  TMDB_API.trending("movie");
   return (
     <div className="home-page">
       <div className="btn-container flex justify-end gap-5">
