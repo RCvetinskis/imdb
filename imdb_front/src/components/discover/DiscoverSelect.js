@@ -1,13 +1,10 @@
 import React from "react";
 import Select from "react-select";
-import { useNavigate } from "react-router-dom";
 const DiscoverSelect = ({
   options,
-  pathname,
   placeholder,
-  apiParams,
-  setApiParams,
   callName,
+  setSearchParams,
 }) => {
   const customStyles = {
     control: (base) => ({
@@ -24,20 +21,15 @@ const DiscoverSelect = ({
       background: "black",
     }),
   };
-  const nav = useNavigate();
+
   const handleSelect = (selectedOption) => {
-    const updatedParams = { ...apiParams };
-    updatedParams[callName] = selectedOption;
-
-    setApiParams(updatedParams);
-    // Construct the new URL based on the updated params
-    const query = Object.entries(updatedParams)
-      .map(([param, value]) => `${param}=${value}`)
-      .filter((param) => param !== "")
-      .join("&");
-
-    const newURL = `${pathname}?${query}`;
-    nav(newURL);
+    setSearchParams(
+      (prev) => {
+        prev.set(callName, selectedOption);
+        return prev;
+      },
+      { replace: true }
+    );
   };
 
   return (

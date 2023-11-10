@@ -12,7 +12,7 @@ const MobileNav = ({
         <li
           onClick={() => handleNav(item)}
           className={`${
-            currentLocation.pathname + currentLocation.search === item.path
+            currentLocation.pathname.includes(item.path)
               ? "selected nav-li"
               : "nav-li"
           } `}

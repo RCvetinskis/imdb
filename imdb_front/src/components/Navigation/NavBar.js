@@ -12,11 +12,10 @@ const NavBar = () => {
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const { user, setUser, setShowLogin } = useContext(mainContext);
   const [accMenuIsOpen, setAccMenuIsOpen] = useState(false);
-
   const defaultOptions = [
     {
       option: "Home",
-      path: "/",
+      path: "/home",
       className: "fa-solid fa-house",
       execute() {
         navigate(this.path);
@@ -40,7 +39,7 @@ const NavBar = () => {
     },
     {
       option: "Top Movies",
-      path: `/top_movies?page=1`,
+      path: `/top_movies`,
       className: "fa-solid fa-film",
       execute() {
         navigate(this.path);
@@ -48,7 +47,7 @@ const NavBar = () => {
     },
     {
       option: "Top Shows",
-      path: `/top_shows?page=1`,
+      path: `/top_shows`,
       className: "fa-solid fa-tv",
       execute() {
         navigate(this.path);

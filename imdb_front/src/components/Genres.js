@@ -1,6 +1,6 @@
 import React from "react";
 
-const Genres = ({ data, selectedGenres, setSelectedGenres, genres }) => {
+const Genres = ({ data, genres, searchParams, setSearchParams }) => {
   let currentPageGenres = [];
   if (!genres) {
     data.forEach((show) => {
@@ -17,14 +17,36 @@ const Genres = ({ data, selectedGenres, setSelectedGenres, genres }) => {
   } else {
     currentPageGenres = genres;
   }
-
+  const selectedGenres = searchParams
+    .getAll("with_genres")
+    .flatMap((genres) => genres.split(",").map(String));
   const addGenre = (genreId) => {
-    setSelectedGenres((prevSelectedGenres) => [...prevSelectedGenres, genreId]);
+    setSearchParams(
+      (prev) => {
+        const updatedGenres = [...selectedGenres, genreId];
+        prev.set("with_genres", updatedGenres);
+        return prev;
+      },
+      { replace: true }
+    );
   };
 
   const removeGenre = (genreId) => {
-    setSelectedGenres((prevSelectedGenres) =>
-      prevSelectedGenres.filter((selectedGenre) => selectedGenre !== genreId)
+    setSearchParams(
+      (prev) => {
+        const updatedGenres = selectedGenres.filter(
+          (genre) => genre !== genreId
+        );
+
+        if (updatedGenres.length > 0) {
+          prev.set("with_genres", updatedGenres);
+        } else {
+          prev.delete("with_genres");
+        }
+
+        return prev;
+      },
+      { replace: true }
     );
   };
 
@@ -33,22 +55,24 @@ const Genres = ({ data, selectedGenres, setSelectedGenres, genres }) => {
       {currentPageGenres.map((genre) => (
         <div
           className={
-            selectedGenres.includes(genre.id) ? "genre selected" : "genre"
+            selectedGenres.includes(genre.id.toString())
+              ? "genre selected"
+              : "genre"
           }
           key={genre.id}
           onClick={() => {
-            if (selectedGenres.includes(genre.id)) {
-              removeGenre(genre.id);
+            if (selectedGenres.includes(genre.id.toString())) {
+              removeGenre(genre.id.toString());
             } else {
-              addGenre(genre.id);
+              addGenre(genre.id.toString());
             }
           }}
         >
           <p> {genre.name}</p>
-          {selectedGenres.includes(genre.id) ? (
+          {selectedGenres.includes(genre.id.toString()) ? (
             <button
               className="close-current"
-              onClick={() => removeGenre(genre.id)}
+              onClick={() => removeGenre(genre.id.toString())}
             >
               x
             </button>
@@ -57,7 +81,16 @@ const Genres = ({ data, selectedGenres, setSelectedGenres, genres }) => {
           )}
         </div>
       ))}
-      <button onClick={() => setSelectedGenres([])}>Clear All</button>
+      <button
+        onClick={() =>
+          setSearchParams((prev) => {
+            prev.delete("with_genres");
+            return prev;
+          })
+        }
+      >
+        Clear Genres
+      </button>
     </div>
   );
 };

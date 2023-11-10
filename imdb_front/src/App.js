@@ -7,7 +7,7 @@ import axios from "axios";
 import Login from "./components/account/Login";
 import Header from "./components/Header";
 import { routes, accountRoutes, rootRoute } from "./utilities/routes";
-
+// at discover page finish sorting genres and add pagination
 // userengament add rating logic
 // implement modal for disliked movies/show
 // add loading before states updates

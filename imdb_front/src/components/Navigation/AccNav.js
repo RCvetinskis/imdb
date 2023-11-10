@@ -86,7 +86,7 @@ const AccNav = ({
       {accountOptions.map((item, index) => (
         <li
           className={`${
-            currentLocation.pathname + currentLocation.search === item.path
+            currentLocation.pathname.includes(item.path)
               ? "selected nav-li"
               : "nav-li"
           } `}

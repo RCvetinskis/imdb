@@ -3,9 +3,6 @@ import useLangCodes from "../hooks/useLangCodes";
 const useSortOptions = () => {
   const languages = useLangCodes();
   const priorityLanguages = ["en", "ru", "es", "lt"];
-  const currentYear = new Date().getFullYear();
-  const startYear = 1960;
-
   const languageOptions = languages
     .map((currentLang) => ({
       value: currentLang.iso_639_1,
@@ -25,6 +22,8 @@ const useSortOptions = () => {
         return aPriority - bPriority;
       }
     });
+  const currentYear = new Date().getFullYear();
+  const startYear = 1960;
 
   const yearsArray = Array.from(
     { length: currentYear - startYear + 1 },
@@ -70,7 +69,7 @@ const useSortOptions = () => {
         label: "Rating Descending ",
       },
     ],
-    years: yearsArray,
+    years: yearsArray.reverse(),
   };
 
   return sortOptions;

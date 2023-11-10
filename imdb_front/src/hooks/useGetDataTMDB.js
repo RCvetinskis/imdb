@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const useGetDataTMDB = (API, page, apiParams) => {
+const useGetDataTMDB = (API, page) => {
   const [data, setData] = useState({
     results: [],
     page: 0,
@@ -33,7 +33,7 @@ const useGetDataTMDB = (API, page, apiParams) => {
     };
     setData((prevData) => ({ ...prevData, isLoading: false }));
     fetchData();
-  }, [API, page, apiParams]);
+  }, [API, page]);
 
   return data;
 };
