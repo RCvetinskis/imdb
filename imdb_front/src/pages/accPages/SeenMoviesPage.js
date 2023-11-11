@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useContext } from "react";
 import mainContext from "../../context/MainContext";
-import Card from "../../components/Card";
-import { SERVER_API } from "../../utilities/APIS";
 import useGetUserShows from "../../hooks/useGetUserShows";
-
-const LikedMoviesPage = () => {
+const SeenMoviesPage = () => {
   const { user } = useContext(mainContext);
-  const userLikedMovies = user.likes.category.movie;
-  const data = useGetUserShows(SERVER_API.movies, userLikedMovies);
-
+  const userSeenMovies = user.already_seen.category.movie;
+  const data = useGetUserShows(SERVER_API.already_seen.movies, userSeenMovies);
   return (
     <div>
       <div className="flex flex-wrap gap-10 justify-center ">
@@ -20,4 +17,4 @@ const LikedMoviesPage = () => {
   );
 };
 
-export default LikedMoviesPage;
+export default SeenMoviesPage;

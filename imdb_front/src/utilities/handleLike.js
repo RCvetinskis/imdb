@@ -2,8 +2,8 @@ import axios from "axios";
 import { SERVER_API } from "./APIS";
 import { throttle } from "lodash";
 const handleLike = throttle(
-  (userId, showId, category, likeType, setUser, getLength) => {
-    axios
+  async (userId, showId, category, likeType, setUser, getLength) => {
+    await axios
       .post(
         likeType === "like" ? SERVER_API.like : SERVER_API.dislike,
         {

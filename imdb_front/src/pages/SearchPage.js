@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../components/ShowsCard/Card";
+import Card from "../components/Card";
 import { useSearchParams, useParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import { TMDB_API } from "../utilities/APIS";

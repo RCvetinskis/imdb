@@ -1,7 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination";
-import Card from "./ShowsCard/Card";
+import Card from "./Card";
 import useGenres from "../hooks/useGenres";
 import { setGenreNames } from "../utilities/setGenreNames";
 import Genres from "./Genres";

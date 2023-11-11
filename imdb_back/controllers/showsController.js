@@ -52,4 +52,26 @@ module.exports = {
     }
     return response(res, "show not found", true);
   },
+  already_seen_movies: async (req, res) => {
+    const { idsArray } = req.body;
+    if (!idsArray)
+      return response(res, "users already seen array not provided", true);
+    const movies = await moviesDb.find({ id: { $in: idsArray } });
+    if (movies.length > 0) {
+      return response(res, "shows are found", false, movies);
+    } else {
+      return response(res, "No shows are fround for the provided ids", true);
+    }
+  },
+  already_seen_tv: async (req, res) => {
+    const { idsArray } = req.body;
+    if (!idsArray)
+      return response(res, "users already seen array not provided", true);
+    const tvShows = await tvShowsDb.find({ id: { $in: idsArray } });
+    if (tvShows.length > 0) {
+      return response(res, "shows are found", false, tvShows);
+    } else {
+      return response(res, "No shows are fround for the provided ids", true);
+    }
+  },
 };

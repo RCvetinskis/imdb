@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { handleLike } from "../../utilities/handleLike";
 import ReactStars from "react-rating-stars-component";
 import { SERVER_API } from "../../utilities/APIS";
-import { handePost } from "../../utilities/handePost";
 import axios from "axios";
+import { throttle } from "lodash";
+
 const UserAdjustment = ({ user, show, type, setUser }) => {
   const [getLikesLength, setLikesLength] = useState(null);
+
   const alreadyRated = (object) => {
     const data = user[object].category[type].find(
       (showId) => showId === show.id
@@ -34,6 +36,29 @@ const UserAdjustment = ({ user, show, type, setUser }) => {
   useEffect(() => {
     getLength(show.id, type);
   }, [show, type]);
+
+  const handleSeen = throttle(async (userId, showId, category) => {
+    await axios
+      .post(
+        SERVER_API.already_seen,
+        {
+          userId,
+          showId,
+          category,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        if (response.data.error) {
+          console.log(response.data.message);
+        } else {
+          setUser(response.data.data);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, 1000);
 
   return (
     <>
@@ -94,6 +119,19 @@ const UserAdjustment = ({ user, show, type, setUser }) => {
           </button>
           <span>{getLikesLength?.dislikes}</span>
         </div>
+
+        <button
+          onClick={() => handleSeen(user._id, show.id, type)}
+          className="btn"
+          disabled={alreadyRated("already_seen") ? true : false}
+          style={
+            alreadyRated("already_seen")
+              ? { color: "#fca311", pointerEvents: "none" }
+              : { color: "#eee" }
+          }
+        >
+          <i className="fa-solid fa-eye"></i>
+        </button>
       </div>
     </>
   );

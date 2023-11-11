@@ -12,7 +12,7 @@ const useGetDataTMDB = (API, page) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setData((prevData) => ({ ...prevData, isLoading: false }));
+      setData((prevData) => ({ ...prevData, isLoading: true }));
       await axios
         .get(API)
         .then(async (response) => {
@@ -31,7 +31,7 @@ const useGetDataTMDB = (API, page) => {
           setData((prevData) => ({ ...prevData, isLoading: false }));
         });
     };
-    setData((prevData) => ({ ...prevData, isLoading: false }));
+
     fetchData();
   }, [API, page]);
 

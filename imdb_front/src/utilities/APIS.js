@@ -49,6 +49,9 @@ const SERVER_API = {
   rate: serverEnviroment + "rate",
   add_show: serverEnviroment + "add_show",
   show_like_length: serverEnviroment + "show_like_length",
+  already_seen: serverEnviroment + "already_seen",
+  already_seen_movies: serverEnviroment + "already_seen_movies",
+  already_seen_tv: serverEnviroment + "already_seen_tv",
 };
 
 export { TMDB_API, SERVER_API };

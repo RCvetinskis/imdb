@@ -2,6 +2,7 @@ const response = require("../module/sendResponse");
 const userDb = require("../Schemas/imdbUserSchema");
 const bcrypt = require("bcrypt");
 const returnOne = require("../module/returnOne");
+const userObject = require("../module/user");
 module.exports = {
   register: async (req, res) => {
     const { username, email, password } = req.body;
@@ -19,25 +20,22 @@ module.exports = {
     const user = await userDb.findOne({ email });
     req.session.user = user;
     req.session.authorized = true;
-    return response(res, "Succesfully logged in", false, {
-      username: user.username,
-      avatar: user.avatar,
-      email: user.email,
-      _id: user._id,
-      likes: req.session.user.likes,
-      dislikes: req.session.user.dislikes,
-    });
+
+    return response(
+      res,
+      "Succesfully logged in",
+      false,
+      userObject(req.session.user)
+    );
   },
   authorized: async (req, res) => {
     if (req.session.authorized) {
-      return response(res, "User authorized", false, {
-        username: req.session.user.username,
-        avatar: req.session.user.avatar,
-        email: req.session.user.email,
-        _id: req.session.user._id,
-        likes: req.session.user.likes,
-        dislikes: req.session.user.dislikes,
-      });
+      return response(
+        res,
+        "User authorized",
+        false,
+        userObject(req.session.user)
+      );
     } else {
       return response(res, "Unauthorized", true);
     }
@@ -72,14 +70,12 @@ module.exports = {
     currentShow.likes.push(userId);
     await currentShow.save();
 
-    return response(res, "Users like list is updated", false, {
-      username: req.session.user.username,
-      avatar: req.session.user.avatar,
-      email: req.session.user.email,
-      _id: req.session.user._id,
-      likes: req.session.user.likes,
-      dislikes: req.session.user.dislikes,
-    });
+    return response(
+      res,
+      "Users like list is updated",
+      false,
+      userObject(req.session.user)
+    );
   },
   userDislikeList: async (req, res) => {
     const { userId, showId, category } = req.body;
@@ -104,13 +100,25 @@ module.exports = {
     }
     currentShow.dislikes.push(userId);
     await currentShow.save();
-    return response(res, "User Dislike list is updated", false, {
-      username: req.session.user.username,
-      avatar: req.session.user.avatar,
-      email: req.session.user.email,
-      _id: req.session.user._id,
-      likes: req.session.user.likes,
-      dislikes: req.session.user.dislikes,
-    });
+    return response(
+      res,
+      "User Dislike list is updated",
+      false,
+      userObject(req.session.user)
+    );
+  },
+  already_seen: async (req, res) => {
+    const { userId, showId, category } = req.body;
+    const user = await returnOne(userId);
+    user.already_seen.category[category].push(showId);
+    await user.save();
+    req.session.user = user;
+    req.session.save();
+    return response(
+      res,
+      "User Dislike list is updated",
+      false,
+      userObject(req.session.user)
+    );
   },
 };

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { classNameRating } from "../../utilities/designFunctions";
-import useGenres from "../../hooks/useGenres";
-import { setGenreNames } from "../../utilities/setGenreNames";
+import { classNameRating } from "../utilities/designFunctions";
+import useGenres from "../hooks/useGenres";
+import { setGenreNames } from "../utilities/setGenreNames";
 const Card = ({ item, type }) => {
   const imgLink = "https://image.tmdb.org/t/p/original/";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import useGetDataTMDB from "../../hooks/useGetDataTMDB";
-import Card from "../ShowsCard/Card";
+import Card from "../Card";
 import useInfiniteScrollData from "../../hooks/useInfiniteScrollData";
 
 const ShowSection = ({ API, type, header }) => {

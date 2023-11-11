@@ -1,5 +1,5 @@
 import React from "react";
-import MoreInfoCard from "../components/ShowsCard/MoreInfoCard";
+import MoreInfoCard from "../components/MoreInfoCard/MoreInfoCard";
 const TvPage = () => {
   return (
     <div className="tv-card-page">

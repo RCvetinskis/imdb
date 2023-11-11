@@ -10,6 +10,8 @@ import DiscoverTv from "../pages/discoverPages/DiscoverTv";
 import NotFound from "../pages/NotFound";
 import TopRatedMovies from "../pages/topRated/TopRatedMovies";
 import TopRatedTv from "../pages/topRated/TopRatedTv";
+import SeenTvPage from "../pages/accPages/SeenTvPage";
+
 const rootRoute = { path: "/", element: <MainPage /> };
 const routes = [
   { path: "/home", element: <MainPage /> },
@@ -26,6 +28,7 @@ const accountRoutes = [
   { path: "/settings", element: <SettingsPage /> },
   { path: "/liked_movies", element: <LikedMoviesPage /> },
   { path: "/liked_shows", element: <LikedTvShowsPage /> },
+  { path: "/already_seen", element: <SeenTvPage /> },
 ];
 
 export { accountRoutes, routes, rootRoute };

@@ -1,6 +1,6 @@
 import React from "react";
 import useGetDataTMDB from "../../hooks/useGetDataTMDB";
-import Card from "../ShowsCard/Card";
+import Card from "../Card";
 import Pagination from "../Pagination";
 const DiscoverSection = ({ API, type, handlePageClick, searchParams }) => {
   const data = useGetDataTMDB(API);

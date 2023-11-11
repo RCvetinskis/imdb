@@ -34,7 +34,7 @@ const DiscoverComponent = ({ type }) => {
 
   return (
     <div>
-      <div className="filter-container">
+      <div className="filter-container flex justify-around flex-wrap my-3">
         <DiscoverSelect
           options={sortOptions.languageOptions}
           placeholder={"Select Language..."}

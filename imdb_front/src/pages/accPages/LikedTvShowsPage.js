@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import mainContext from "../../context/MainContext";
 import { SERVER_API } from "../../utilities/APIS";
-import Card from "../../components/ShowsCard/Card";
+import Card from "../../components/Card";
 import useGetUserShows from "../../hooks/useGetUserShows";
 
 const LikedTvShowsPage = () => {

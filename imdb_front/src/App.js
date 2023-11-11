@@ -7,6 +7,7 @@ import axios from "axios";
 import Login from "./components/account/Login";
 import Header from "./components/Header";
 import { routes, accountRoutes, rootRoute } from "./utilities/routes";
+import LoadingScreen from "./components/LoadingScreen";
 // at discover page finish sorting genres and add pagination
 // userengament add rating logic
 // implement modal for disliked movies/show
@@ -21,18 +22,19 @@ import { routes, accountRoutes, rootRoute } from "./utilities/routes";
 // choose language
 // finish some styling with few animations
 const socket = io.connect("http://localhost:4000");
-
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const values = {
     socket,
     showLogin,
     setShowLogin,
     user,
     setUser,
+    loading,
+    setLoading,
   };
-
   const initializeUser = async () => {
     try {
       const response = await axios.get(SERVER_API.authorized, {
@@ -44,6 +46,8 @@ function App() {
       }
     } catch (error) {
       console.error("Failed to initialize user:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,20 +60,24 @@ function App() {
       <moviesContext.Provider value={values}>
         {showLogin && <Login />}
         <Header />
-        <div className="container m-5">
-          <Routes>
-            {(user
-              ? [...accountRoutes, ...routes, rootRoute]
-              : [...routes, rootRoute]
-            ).map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.element}
-              />
-            ))}
-          </Routes>
-        </div>
+        {loading ? (
+          <LoadingScreen />
+        ) : (
+          <div className="container m-5">
+            <Routes>
+              {(user
+                ? [...accountRoutes, ...routes, rootRoute]
+                : [...routes, rootRoute]
+              ).map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              ))}
+            </Routes>
+          </div>
+        )}
       </moviesContext.Provider>
     </div>
   );

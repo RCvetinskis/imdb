@@ -31,5 +31,11 @@ const imdbUserSchema = new Schema({
       tv: { type: [Schema.Types.Mixed], default: [] },
     },
   },
+  already_seen: {
+    category: {
+      movie: { type: [Schema.Types.Mixed], default: [] },
+      tv: { type: [Schema.Types.Mixed], default: [] },
+    },
+  },
 });
 module.exports = mongoose.model("imdbUserSchema", imdbUserSchema);
