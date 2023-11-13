@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import ShowSection from "../components/HomePage/ShowSection";
 import { TMDB_API } from "../utilities/APIS";
+
 const MainPage = () => {
   const [switchContent, setSwitchContent] = useState(true);
+
   const TVAPIS = {
     popular: TMDB_API.popular("tv"),
     trending: TMDB_API.trending("tv"),

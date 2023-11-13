@@ -31,7 +31,7 @@ module.exports = {
     if (!compare) return response(res, "password do not match", true);
     next();
   },
-  validateLikeList: async (req, res, next) => {
+  validateHandleShowLike: async (req, res, next) => {
     const { userId, showId, category } = req.body;
     if ((!userId, !showId, !category))
       return response(res, "provide userId, showId and category");
@@ -55,7 +55,7 @@ module.exports = {
 
     next();
   },
-  validateDislikeList: async (req, res, next) => {
+  validateHandleShowDislike: async (req, res, next) => {
     const { userId, showId, category } = req.body;
     if ((!userId, !showId, !category))
       return response(res, "provide userId, showId and category");
@@ -78,7 +78,7 @@ module.exports = {
 
     next();
   },
-  validateAlreadySeen: async (req, res, next) => {
+  validateHandleShowSeen: async (req, res, next) => {
     const { userId, showId, category } = req.body;
     if ((!userId, !showId, !category))
       return response(res, "provide userId, showId and category");

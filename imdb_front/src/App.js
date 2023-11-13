@@ -7,42 +7,45 @@ import axios from "axios";
 import Login from "./components/account/Login";
 import Header from "./components/Header";
 import { routes, accountRoutes, rootRoute } from "./utilities/routes";
-import LoadingScreen from "./components/LoadingScreen";
-// at discover page finish sorting genres and add pagination
-// userengament add rating logic
+import LoadingScreen from "./components/loading/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// on double click eye mark as unseen, write before element on hover to show message double click to unsee
+// throttle login/register, create new design for register/login modal
+// add rating and displayer total rating and your rating with stars, on hover show your rating
 // implement modal for disliked movies/show
-// add loading before states updates
-// discover page
 // create episode page
-// create page explore"explore page will show unseen tvs, filter by rating,genre ir t.t"
-// implement filter for every result from tmdbapi
 // at account settings implement changes for account, change picture,name,password,email
-// create chatbox
-// create forums
 // choose language
+// create better comment section
 // finish some styling with few animations
 const socket = io.connect("http://localhost:4000");
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingData, setLoadingData] = useState(false);
+
   const values = {
     socket,
     showLogin,
     setShowLogin,
     user,
     setUser,
-    loading,
-    setLoading,
+    toast,
+    loadingData,
+    setLoadingData,
   };
   const initializeUser = async () => {
     try {
-      const response = await axios.get(SERVER_API.authorized, {
+      const { data } = await axios.get(SERVER_API.authorized, {
         withCredentials: true,
       });
 
-      if (!response.data.error) {
-        setUser(response.data.data);
+      if (!data.error) {
+        setUser(data.data);
+      } else {
+        console.log("no user seasion is found");
       }
     } catch (error) {
       console.error("Failed to initialize user:", error);
@@ -58,25 +61,28 @@ function App() {
   return (
     <div>
       <moviesContext.Provider value={values}>
-        {showLogin && <Login />}
-        <Header />
         {loading ? (
           <LoadingScreen />
         ) : (
-          <div className="container m-5">
-            <Routes>
-              {(user
-                ? [...accountRoutes, ...routes, rootRoute]
-                : [...routes, rootRoute]
-              ).map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={route.element}
-                />
-              ))}
-            </Routes>
-          </div>
+          <>
+            {showLogin && <Login />}
+            <ToastContainer />
+            <Header />
+            <div className="container m-5">
+              <Routes>
+                {(user
+                  ? [...accountRoutes, ...routes, rootRoute]
+                  : [...routes, rootRoute]
+                ).map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
+              </Routes>
+            </div>
+          </>
         )}
       </moviesContext.Provider>
     </div>

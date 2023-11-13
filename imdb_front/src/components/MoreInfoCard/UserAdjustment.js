@@ -40,7 +40,7 @@ const UserAdjustment = ({ user, show, type, setUser }) => {
   const handleSeen = throttle(async (userId, showId, category) => {
     await axios
       .post(
-        SERVER_API.already_seen,
+        SERVER_API.handle_show_seen,
         {
           userId,
           showId,

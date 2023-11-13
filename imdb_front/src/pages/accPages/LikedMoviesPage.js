@@ -1,21 +1,17 @@
 import React, { useContext } from "react";
 import mainContext from "../../context/MainContext";
-import Card from "../../components/Card";
 import { SERVER_API } from "../../utilities/APIS";
-import useGetUserShows from "../../hooks/useGetUserShows";
-
+import UserShowsComponent from "../../components/userShows/UserShowsComponent.js";
 const LikedMoviesPage = () => {
   const { user } = useContext(mainContext);
-  const userLikedMovies = user.likes.category.movie;
-  const data = useGetUserShows(SERVER_API.movies, userLikedMovies);
 
   return (
     <div>
-      <div className="flex flex-wrap gap-10 justify-center ">
-        {data.map((item) => (
-          <Card item={item.dynamicData} key={item.id} type={item.media_type} />
-        ))}
-      </div>
+      <UserShowsComponent
+        API={SERVER_API.user_shows_list}
+        userShowsArr={user.likes.category.movie}
+        type={"movie"}
+      />
     </div>
   );
 };

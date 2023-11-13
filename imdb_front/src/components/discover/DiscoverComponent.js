@@ -1,7 +1,7 @@
 import React from "react";
 import { TMDB_API } from "../../utilities/APIS";
 import DiscoverSection from "./DiscoverSection";
-import DiscoverSelect from "./DiscoverSelect";
+import FilterShows from "../FilterShows";
 import useSortOptions from "../../hooks/useSortOptions";
 import Genres from "../Genres";
 import useGenres from "../../hooks/useGenres";
@@ -23,31 +23,28 @@ const DiscoverComponent = ({ type }) => {
   // change params on page click
   const handlePageClick = (event) => {
     const pageNo = event.selected + 1;
-    setSearchParams(
-      (prev) => {
-        prev.set("page", pageNo);
-        return prev;
-      },
-      { replace: true }
-    );
+    setSearchParams((prev) => {
+      prev.set("page", pageNo);
+      return prev;
+    });
   };
 
   return (
     <div>
       <div className="filter-container flex justify-around flex-wrap my-3">
-        <DiscoverSelect
+        <FilterShows
           options={sortOptions.languageOptions}
           placeholder={"Select Language..."}
           callName={"with_original_language"}
           setSearchParams={setSearchParams}
         />
-        <DiscoverSelect
+        <FilterShows
           options={sortOptions.sortBy}
           placeholder={"Sort by..."}
           callName={"sort_by"}
           setSearchParams={setSearchParams}
         />
-        <DiscoverSelect
+        <FilterShows
           options={sortOptions.years}
           placeholder={"Select Years..."}
           setSearchParams={setSearchParams}

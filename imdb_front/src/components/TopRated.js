@@ -7,13 +7,14 @@ import { setGenreNames } from "../utilities/setGenreNames";
 import Genres from "./Genres";
 import useGetDataTMDB from "../hooks/useGetDataTMDB";
 import { TMDB_API } from "../utilities/APIS";
+import LoadingScreen from "../components/loading/LoadingScreen";
 const TopRated = ({ type }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page"));
   const API = TMDB_API.top(type, page ? page : 1);
   const data = useGetDataTMDB(API, page);
   const genres = useGenres(type);
-  const dataToDisplayGenres = setGenreNames(data, genres, true);
+  const dataToDisplayGenres = setGenreNames(data, genres);
 
   let filterData = data;
   const selectedGenres = searchParams
@@ -40,23 +41,29 @@ const TopRated = ({ type }) => {
 
   return (
     <div className="top-rated-movies">
-      <Genres
-        data={dataToDisplayGenres.results}
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-      />
+      {data.isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <>
+          <Genres
+            data={dataToDisplayGenres.results}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
 
-      <div className="flex flex-wrap gap-10 justify-center ">
-        {filterData?.results.map((item) => (
-          <Card item={item} key={item.id} type={type} />
-        ))}
-      </div>
-      <Pagination
-        pageCount={data.total_pages >= 500 ? 500 : data.total_pages}
-        handlePageClick={handlePageClick}
-        searchParams={searchParams}
-        pageParams={page}
-      />
+          <div className="flex flex-wrap gap-10 justify-center ">
+            {filterData?.results.map((item) => (
+              <Card item={item} key={item.id} type={type} />
+            ))}
+          </div>
+          <Pagination
+            pageCount={data.total_pages >= 500 ? 500 : data.total_pages}
+            handlePageClick={handlePageClick}
+            searchParams={searchParams}
+            pageParams={page}
+          />
+        </>
+      )}
     </div>
   );
 };

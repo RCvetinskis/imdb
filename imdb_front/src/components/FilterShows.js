@@ -23,20 +23,29 @@ const DiscoverSelect = ({
   };
 
   const handleSelect = (selectedOption) => {
-    setSearchParams(
-      (prev) => {
-        prev.set(callName, selectedOption);
+    if (selectedOption) {
+      setSearchParams(
+        (prev) => {
+          prev.set(callName, selectedOption.value);
+          return prev;
+        },
+        { replace: true }
+      );
+    }
+    if (!selectedOption) {
+      setSearchParams((prev) => {
+        prev.delete(callName);
         return prev;
-      },
-      { replace: true }
-    );
+      });
+    }
   };
 
   return (
     <div className="select-container w-[200px]">
       <Select
+        isClearable
         placeholder={placeholder}
-        onChange={(selectedOption) => handleSelect(selectedOption.value)}
+        onChange={(selectedOption) => handleSelect(selectedOption)}
         options={options}
         styles={customStyles}
         theme={(theme) => ({

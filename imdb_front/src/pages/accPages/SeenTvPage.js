@@ -1,20 +1,18 @@
 import React from "react";
 import { useContext } from "react";
 import mainContext from "../../context/MainContext";
-import useGetUserShows from "../../hooks/useGetUserShows";
-import Card from "../../components/Card";
 import { SERVER_API } from "../../utilities/APIS";
+import UserShowsComponent from "../../components/userShows/UserShowsComponent.js";
 const SeenTvPage = () => {
   const { user } = useContext(mainContext);
-  const userSeenTv = user.already_seen.category.tv;
-  const data = useGetUserShows(SERVER_API.already_seen_tv, userSeenTv);
+
   return (
     <div>
-      <div className="flex flex-wrap gap-10 justify-center ">
-        {data.map((item) => (
-          <Card item={item.dynamicData} key={item.id} type={item.media_type} />
-        ))}
-      </div>
+      <UserShowsComponent
+        API={SERVER_API.user_shows_list}
+        userShowsArr={user.already_seen.category.tv}
+        type={"tv"}
+      />
     </div>
   );
 };

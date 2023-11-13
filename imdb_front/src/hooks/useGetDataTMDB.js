@@ -28,7 +28,6 @@ const useGetDataTMDB = (API, page) => {
         })
         .catch((error) => {
           console.log(error);
-          setData((prevData) => ({ ...prevData, isLoading: false }));
         });
     };
 

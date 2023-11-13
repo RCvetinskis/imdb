@@ -1,6 +1,6 @@
 const moviesDb = require("../Schemas/moviesSchema");
 const tvShowsDb = require("../Schemas/tvShowSchema");
-
+const response = require("../module/sendResponse");
 module.exports = {
   validateAddShow: async (req, res, next) => {
     const { category, show } = req.body;

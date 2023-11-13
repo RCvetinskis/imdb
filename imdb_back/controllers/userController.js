@@ -45,7 +45,7 @@ module.exports = {
     req.session.authorized = false;
     return response(res, "logout completed", true);
   },
-  userLikeList: async (req, res) => {
+  handle_show_like: async (req, res) => {
     // updates users likes and adds like too show
     const { userId, showId, category } = req.body;
     const user = await returnOne(userId);
@@ -77,7 +77,7 @@ module.exports = {
       userObject(req.session.user)
     );
   },
-  userDislikeList: async (req, res) => {
+  handle_show_dislike: async (req, res) => {
     const { userId, showId, category } = req.body;
     const user = await returnOne(userId);
     const currentShow = await returnOne(showId, category);
@@ -107,7 +107,7 @@ module.exports = {
       userObject(req.session.user)
     );
   },
-  already_seen: async (req, res) => {
+  handle_show_seen: async (req, res) => {
     const { userId, showId, category } = req.body;
     const user = await returnOne(userId);
     user.already_seen.category[category].push(showId);

@@ -4,15 +4,19 @@ const Genres = ({ data, genres, searchParams, setSearchParams }) => {
   let currentPageGenres = [];
   if (!genres) {
     data.forEach((show) => {
-      show.genres.forEach((genre) => {
-        const genreId = genre.id;
-        const existingGenre = currentPageGenres.find(
-          (existing) => existing.id === genreId
-        );
-        if (!existingGenre) {
-          currentPageGenres.push({ id: genreId, name: genre.name });
-        }
-      });
+      // check if includes dynamicData from server db
+      const showGenres = show.dynamicData?.genres || show.genres;
+      if (showGenres) {
+        showGenres.forEach((genre) => {
+          const genreId = genre.id;
+          const existingGenre = currentPageGenres.find(
+            (existing) => existing.id === genreId
+          );
+          if (!existingGenre) {
+            currentPageGenres.push({ id: genreId, name: genre.name });
+          }
+        });
+      }
     });
   } else {
     currentPageGenres = genres;

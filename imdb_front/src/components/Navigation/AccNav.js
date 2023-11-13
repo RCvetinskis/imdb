@@ -67,9 +67,17 @@ const AccNav = ({
       },
     },
     {
-      option: "Already Seen",
-      path: "/already_seen",
+      option: "Seen Movies",
+      path: "/already_seen_movies",
       className: "fa-solid fa-film",
+      execute() {
+        navigate(this.path);
+      },
+    },
+    {
+      option: "Seen Tv Shows",
+      path: "/already_seen_tv",
+      className: "fa-solid fa-tv",
       execute() {
         navigate(this.path);
       },

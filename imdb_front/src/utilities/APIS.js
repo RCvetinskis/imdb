@@ -34,24 +34,35 @@ const TMDB_API = {
   languageCodes: `${enviroment}/configuration/languages?&${API_KEY}`,
 };
 const SERVER_API = {
+  // User Authentication
   register: serverEnviroment + "register",
   login: serverEnviroment + "login",
   authorized: serverEnviroment + "authorized",
   logout: serverEnviroment + "logout",
-  like: serverEnviroment + "like_list",
-  dislike: serverEnviroment + "dislike_list",
-  movies: serverEnviroment + "movies",
-  tv: serverEnviroment + "tvShows",
+
+  // User Show Interaction
+  handle_show_like: serverEnviroment + "handle_show_like",
+  handle_show_dislike: serverEnviroment + "handle_show_dislike",
+  handle_show_seen: serverEnviroment + "handle_show_seen",
+
+  // User Engagement (Comments and Replies)
   post_comment: serverEnviroment + "post_comment",
   post_reply_comment: serverEnviroment + "post_reply_comment",
   get_comments: serverEnviroment + "get_comments",
   get_reply_comments: serverEnviroment + "get_reply_comments",
-  rate: serverEnviroment + "rate",
+
+  // shows
   add_show: serverEnviroment + "add_show",
   show_like_length: serverEnviroment + "show_like_length",
-  already_seen: serverEnviroment + "already_seen",
-  already_seen_movies: serverEnviroment + "already_seen_movies",
-  already_seen_tv: serverEnviroment + "already_seen_tv",
+  user_shows_list(search) {
+    return `${serverEnviroment}user_shows_list${search}`;
+  },
+  //  users shows genres/languages
+  user_shows_genres_list: serverEnviroment + "user_shows_genres_list",
+  user_shows_language_list: serverEnviroment + "user_shows_language_list",
+
+  // Ratings
+  rate: serverEnviroment + "rate",
 };
 
 export { TMDB_API, SERVER_API };

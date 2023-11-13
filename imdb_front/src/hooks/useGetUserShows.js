@@ -1,24 +1,49 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-const useGetUserShows = (url, idsArray) => {
-  const [data, setData] = useState([
-    {
-      dynamicData: [],
-      comments: [],
-      id: 0,
-      media_type: "tv",
-      _id: 0,
-    },
-  ]);
+import mainContext from "../context/MainContext";
+const useGetUserShows = (url) => {
+  const [data, setData] = useState({
+    results: [],
+    page: 0,
+    total_pages: 0,
+    total_results: 0,
+    isLoading: true,
+    genres: [],
+    languages: [],
+    primary_release_year: [],
+    first_air_date_year: [],
+  });
+  const { setLoadingData } = useContext(mainContext);
+
   useEffect(() => {
-    axios.post(url, { idsArray }).then((response) => {
-      if (response.data.error) {
-        console.log(response.data.message);
-      } else {
-        setData(response.data.data);
+    const fetchUsersShows = async () => {
+      try {
+        setLoadingData(true);
+        const { data } = await axios.get(url);
+        if (!data.error) {
+          setData(data.data);
+          setData((prev) => ({
+            ...prev,
+            results: data.data.results,
+            total_pages: data.data.total_pages,
+            total_results: data.data.total_results,
+            isLoading: false,
+            genres: data.data.genres,
+            languages: data.data.languages,
+            primary_release_year: data.data.primary_release_year,
+            first_air_date_year: data.data.first_air_date_year,
+          }));
+        } else {
+          console.log(data.data.message);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingData(false);
       }
-    });
-  }, [url, idsArray]);
+    };
+    fetchUsersShows();
+  }, [url]);
 
   return data;
 };

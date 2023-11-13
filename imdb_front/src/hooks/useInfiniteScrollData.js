@@ -14,12 +14,17 @@ const useInfiniteScrollData = (
     const fetchData = async (newPage) => {
       if (newPage <= totalPages) {
         const nextPageAPI = `${API}&page=${newPage}`;
-        await axios.get(nextPageAPI).then((response) => {
-          const newData = response.data.results.slice(0, 5);
-          data.results = [...data.results, ...newData];
-          setGetMoreData({ ...data });
-          setPage(newPage);
-        });
+        await axios
+          .get(nextPageAPI)
+          .then((response) => {
+            const newData = response.data.results.slice(0, 5);
+            data.results = [...data.results, ...newData];
+            setGetMoreData({ ...data });
+            setPage(newPage);
+          })
+          .then((error) => {
+            console.log(error);
+          });
       }
     };
 
