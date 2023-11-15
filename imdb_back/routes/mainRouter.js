@@ -16,13 +16,7 @@ const {
   validateHandleShowDislike,
   validateHandleShowSeen,
 } = require("../middleware/userValidator");
-const {
-  add_show,
-  totalShowLikes,
-  user_shows_list,
-  users_shows_genresList,
-  users_shows_langList,
-} = require("../controllers/showsController");
+const { add_show, user_shows_list } = require("../controllers/showsController");
 const {
   get_comments,
   post_comment,
@@ -54,7 +48,6 @@ router.post("/handle_show_seen", validateHandleShowSeen, handle_show_seen);
 //  Shows
 router.post("/add_show", validateAddShow, add_show);
 router.get("/user_shows_list", user_shows_list);
-router.get("/show_like_length", totalShowLikes);
 
 // User Engagement (Comments and Replies)
 router.get("/get_comments", get_comments);

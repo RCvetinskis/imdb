@@ -9,5 +9,8 @@ module.exports = (http) => {
     socket.on("reply-comments", (replyComments) => {
       io.emit("new-reply-comments", replyComments);
     });
+    socket.on("handle_likes", (user) => {
+      io.emit("new-shows-likes", user);
+    });
   });
 };

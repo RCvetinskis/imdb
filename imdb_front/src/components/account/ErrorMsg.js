@@ -5,10 +5,10 @@ const ErrorMsg = ({ data, setIsFormValid, type, errorMsg, setErrorMsg }) => {
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const loginErrorMsg = {
     email: "Email adress is not valid",
-    username: "username min length 5",
-    password: "password min length 5",
-    confirmPassword: "password should match",
-    serverSide: "user not found",
+    username: "Username min length 5",
+    password: "Password min length 5",
+    confirmPassword: "Password should match",
+    serverSide: "User not found",
   };
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const ErrorMsg = ({ data, setIsFormValid, type, errorMsg, setErrorMsg }) => {
     }
   }, [data]);
 
-  return <div className="error text-red-500">{errorMsg}</div>;
+  return <div className="error  text-red-500">{errorMsg}</div>;
 };
 
 export default ErrorMsg;

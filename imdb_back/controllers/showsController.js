@@ -5,30 +5,36 @@ const returnOne = require("../module/returnOne");
 const findAndPaginateShows = require("../module/findAndPaginateShows");
 module.exports = {
   add_show: async (req, res) => {
-    const { category, show } = req.body;
-    let showData = await returnOne(show.id, category);
-
+    const { category, show, userId } = req.body;
+    const showData = await returnOne(show.id, category);
+    const user = await returnOne(userId);
+    let data = {
+      ...showData._doc,
+      likes_length: showData.likes.length,
+      dislikes_length: showData.dislikes.length,
+      already_liked: false,
+      already_disliked: false,
+      already_seen: false,
+    };
+    if (user) {
+      const likedList = user.likes.category[category];
+      if (likedList.includes(show.id)) {
+        data.already_liked = true;
+      }
+      const dislikeList = user.dislikes.category[category];
+      if (dislikeList.includes(show.id)) {
+        data.already_disliked = true;
+      }
+      const seenList = user.already_seen.category[category];
+      if (seenList.includes(show.id)) {
+        data.already_seen = true;
+      }
+    }
     if (showData) {
-      return response(res.status(200), "Show has been sent", false, showData);
+      return response(res.status(200), "Show has been sent", false, data);
     } else {
       return response(res.status(404), "Show not found", true);
     }
-  },
-  totalShowLikes: async (req, res) => {
-    const showId = Number(req.query.showId);
-    const category = req.query.category;
-    const currentShow = await returnOne(showId, category);
-    if (currentShow && currentShow.likes) {
-      return res.send({
-        message: "show likes length",
-        error: false,
-        data: {
-          likes: currentShow.likes.length,
-          dislikes: currentShow.dislikes.length,
-        },
-      });
-    }
-    return response(res, "show not found", true);
   },
 
   user_shows_list: async (req, res) => {

@@ -10,7 +10,6 @@ import { routes, accountRoutes, rootRoute } from "./utilities/routes";
 import LoadingScreen from "./components/loading/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// on double click eye mark as unseen, write before element on hover to show message double click to unsee
 // throttle login/register, create new design for register/login modal
 // add rating and displayer total rating and your rating with stars, on hover show your rating
 // implement modal for disliked movies/show

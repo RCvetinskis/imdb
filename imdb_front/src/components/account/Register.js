@@ -22,7 +22,7 @@ const Register = ({
 
   const handleSubmit = async () => {
     if (isFormValid) {
-      axios
+      await axios
         .post(SERVER_API.register, {
           username: inputData.username,
           email: inputData.email,

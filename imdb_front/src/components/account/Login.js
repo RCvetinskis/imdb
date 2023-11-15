@@ -18,9 +18,10 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const { setUser } = useContext(mainContext);
   const nav = useNavigate();
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (isFormValid) {
-      axios
+      await axios
         .post(
           SERVER_API.login,
           {
@@ -45,70 +46,48 @@ const Login = () => {
   };
 
   return (
-    <div className="form-modal-container">
-      {registerModal ? (
-        <Register
-          setRegisterModal={setRegisterModal}
-          showLogin={showLogin}
-          setShowLogin={setShowLogin}
-          isFormValid={isFormValid}
-          setIsFormValid={setIsFormValid}
-          errorMsg={errorMsg}
-          setErrorMsg={setErrorMsg}
-        />
-      ) : (
-        <div className="form-modal-content">
-          <i
-            onClick={() => setShowLogin(!showLogin)}
-            className="fa-solid fa-x"
-          ></i>
-          <div className="inputs-container">
-            <Input
-              inputData={inputData}
-              setInputData={setInputData}
-              type="email"
-              placeholder="email"
-              name="email"
-            />
+    <div className="form-modal-screen">
+      <div className="form-container">
+        <i
+          onClick={() => setShowLogin(!showLogin)}
+          className="fa-solid fa-x"
+        ></i>
+        <form className="form" onSubmit={handleSubmit}>
+          <Input
+            inputData={inputData}
+            setInputData={setInputData}
+            type="email"
+            placeholder="email"
+            name="email"
+          />
 
-            <Input
-              inputData={inputData}
-              setInputData={setInputData}
-              type="password"
-              placeholder="password"
-              name="password"
-            />
-            <ErrorMsg
-              errorMsg={errorMsg}
-              setErrorMsg={setErrorMsg}
-              type="login"
-              data={inputData}
-              setIsFormValid={setIsFormValid}
-            />
+          <Input
+            inputData={inputData}
+            setInputData={setInputData}
+            type="password"
+            placeholder="password"
+            name="password"
+          />
 
-            <div className="input-check-container">
-              <Input
-                inputData={inputData}
-                setInputData={setInputData}
-                type="checkbox"
-                placeholder="Remember me"
-                name={"stayOn"}
-              />
-            </div>
-
-            <button onClick={handleSubmit} className="btn">
-              Login
-            </button>
-          </div>
-
-          <div className="btn-register-container">
-            <h2>Don't have an account?</h2>
-            <button onClick={() => setRegisterModal(true)} className="btn">
-              Register
-            </button>
-          </div>
+          <button type="submit" className="form-btn">
+            Login
+          </button>
+        </form>
+        <div className="error-container">
+          <ErrorMsg
+            errorMsg={errorMsg}
+            setErrorMsg={setErrorMsg}
+            type="login"
+            data={inputData}
+            setIsFormValid={setIsFormValid}
+          />
         </div>
-      )}
+
+        <footer className="form-footer">
+          <p>Don't have an account?</p>
+          <button className="form-btn">Register</button>
+        </footer>
+      </div>
     </div>
   );
 };

@@ -1,19 +1,17 @@
 .search-container {
   justify-self: center;
   display: flex;
-
-  .search-btn,
-  .search-input {
+  .search-btn {
     border-radius: 6px;
   }
+
   .input-container {
     position: relative;
     .search-input {
       padding: 10px 30px;
+      @include inputStyle;
       background: black;
-      outline: none;
       box-shadow: 7px 8px 6px -3px $gold;
-
       &:focus {
         box-shadow: 7px 8px 6px -3px $light-grey;
         &::placeholder {

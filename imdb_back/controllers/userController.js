@@ -57,6 +57,7 @@ module.exports = {
     if (dislikeList.includes(showId)) {
       dislikeList.splice(indexOfDislikedList, 1);
     }
+
     user.likes.category[category].push(showId);
     await user.save();
     req.session.user = user;
@@ -67,6 +68,7 @@ module.exports = {
     if (showDislikeList.includes(userId)) {
       showDislikeList.splice(indexShowDislikeList, 1);
     }
+
     currentShow.likes.push(userId);
     await currentShow.save();
 
@@ -109,8 +111,16 @@ module.exports = {
   },
   handle_show_seen: async (req, res) => {
     const { userId, showId, category } = req.body;
+
     const user = await returnOne(userId);
-    user.already_seen.category[category].push(showId);
+    const seenList = user.already_seen.category[category];
+
+    if (seenList.includes(showId)) {
+      const indexOfSeenShow = seenList.indexOf(showId);
+      seenList.splice(indexOfSeenShow, 1);
+    } else {
+      seenList.push(showId);
+    }
     await user.save();
     req.session.user = user;
     req.session.save();

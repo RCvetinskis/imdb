@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { TMDB_API } from "../../utilities/APIS";
 import mainContext from "../../context/MainContext";
@@ -9,7 +9,7 @@ import Comments from "../comments/Comments";
 import { classNameRating } from "../../utilities/designFunctions";
 import YoutubeModal from "./YoutubeModal";
 const MoreInfoCard = ({ type }) => {
-  const { user, setUser } = useContext(mainContext);
+  const { user, setUser, socket } = useContext(mainContext);
   const [seasonsModal, setSeasonsModal] = useState(false);
   const seasonsModalRef = useRef(null);
   const [openTrailer, setOpenTrailer] = useState(false);
@@ -19,7 +19,17 @@ const MoreInfoCard = ({ type }) => {
 
   // gets data for current card
   const TMBDB_API_BY_ID = TMDB_API.by_id(type, showId);
-  const data = useTransferData(TMBDB_API_BY_ID, type);
+
+  const data = useTransferData(TMBDB_API_BY_ID, type, user);
+  useEffect(() => {
+    socket.on("new-shows-likes", (userData) => {
+      setUser((prevData) => {
+        const updatedData = { ...prevData, ...userData };
+        return updatedData;
+      });
+    });
+  }, [socket, user]);
+
   const imgLink = "https://image.tmdb.org/t/p/original/";
 
   const scrollToShowSeasons = () => {
@@ -136,6 +146,7 @@ const MoreInfoCard = ({ type }) => {
                 setUser={setUser}
                 type={type}
                 show={data}
+                socket={socket}
               />
 
               <Comments user={user} type={type} show={data} />

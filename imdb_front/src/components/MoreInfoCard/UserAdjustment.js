@@ -1,42 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { handleLike } from "../../utilities/handleLike";
 import ReactStars from "react-rating-stars-component";
 import { SERVER_API } from "../../utilities/APIS";
 import axios from "axios";
 import { throttle } from "lodash";
 
-const UserAdjustment = ({ user, show, type, setUser }) => {
-  const [getLikesLength, setLikesLength] = useState(null);
-
-  const alreadyRated = (object) => {
-    const data = user[object].category[type].find(
-      (showId) => showId === show.id
-    );
-    if (data) {
-      return data;
-    } else {
-      return null;
-    }
-  };
-  const getLength = async (showId, category) => {
-    await axios
-      .get(SERVER_API.show_like_length, {
-        params: {
-          showId,
-          category,
-        },
-      })
-      .then((response) => {
-        if (!response.data.error) {
-          setLikesLength(response.data.data);
-        }
-      })
-      .catch((error) => console.log(error));
-  };
-  useEffect(() => {
-    getLength(show.id, type);
-  }, [show, type]);
-
+const UserAdjustment = ({ user, show, type, setUser, socket }) => {
   const handleSeen = throttle(async (userId, showId, category) => {
     await axios
       .post(
@@ -80,55 +49,43 @@ const UserAdjustment = ({ user, show, type, setUser }) => {
       <div className="btns-container">
         <div>
           <button
-            disabled={alreadyRated("likes") ? true : false}
+            disabled={show.already_liked ? true : false}
             style={
-              alreadyRated("likes")
+              show.already_liked
                 ? { color: "#fca311", pointerEvents: "none" }
                 : { color: "#eee" }
             }
             onClick={() => {
-              handleLike(user._id, show.id, type, "like", setUser, getLength);
+              handleLike(user._id, show.id, type, "like", setUser, socket);
             }}
             className="btn-like "
           >
             <i className="fa-solid fa-thumbs-up"></i>
           </button>
-          <span>{getLikesLength?.likes}</span>
+          <span>{show.likes_length}</span>
         </div>
         <div>
           <button
-            disabled={alreadyRated("dislikes") ? true : false}
+            disabled={show.already_disliked ? true : false}
             style={
-              alreadyRated("dislikes")
+              show.already_disliked
                 ? { color: "#9b2226", pointerEvents: "none" }
                 : { color: "#eee" }
             }
             onClick={() => {
-              handleLike(
-                user._id,
-                show.id,
-                type,
-                "dislike",
-                setUser,
-                getLength
-              );
+              handleLike(user._id, show.id, type, "dislike", setUser, socket);
             }}
             className="btn-like "
           >
             <i className="fa-solid fa-thumbs-down"></i>
           </button>
-          <span>{getLikesLength?.dislikes}</span>
+          <span>{show.dislikes_length}</span>
         </div>
 
         <button
           onClick={() => handleSeen(user._id, show.id, type)}
           className="btn"
-          disabled={alreadyRated("already_seen") ? true : false}
-          style={
-            alreadyRated("already_seen")
-              ? { color: "#fca311", pointerEvents: "none" }
-              : { color: "#eee" }
-          }
+          style={show.already_seen ? { color: "#fca311" } : { color: "#eee" }}
         >
           <i className="fa-solid fa-eye"></i>
         </button>

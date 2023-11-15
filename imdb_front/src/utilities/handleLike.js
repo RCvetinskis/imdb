@@ -2,7 +2,7 @@ import axios from "axios";
 import { SERVER_API } from "./APIS";
 import { throttle } from "lodash";
 const handleLike = throttle(
-  async (userId, showId, category, likeType, setUser, getLength) => {
+  async (userId, showId, category, likeType, setUser, socket) => {
     await axios
       .post(
         likeType === "like"
@@ -21,8 +21,11 @@ const handleLike = throttle(
         if (response.data.error) {
           console.log(response.data.message);
         } else {
-          setUser(response.data.data);
-          getLength(showId, category);
+          setUser((prevUser) => {
+            const updatedUser = { ...prevUser, ...response.data.data };
+            socket.emit("handle_likes", updatedUser);
+            return updatedUser;
+          });
         }
       })
       .catch((error) => console.log(error));

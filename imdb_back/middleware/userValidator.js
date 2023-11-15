@@ -89,8 +89,6 @@ module.exports = {
     if (!user.already_seen.category[category])
       return response(res, "Invalid category", true);
 
-    if (user.already_seen.category[category].includes(showId))
-      return response(res, "show already marked as seen", true);
     const currentShow = await returnOne(showId, category);
     if (!currentShow) return response(res, "show not found", true);
     next();

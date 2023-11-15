@@ -12,7 +12,7 @@ const Input = ({ type, placeholder, inputData, setInputData, name }) => {
       <label htmlFor={placeholder}>{placeholder}</label>
       <input
         onChange={handleChange}
-        className="custom-input"
+        className="acc-input"
         name={name}
         type={type}
         placeholder={placeholder}
