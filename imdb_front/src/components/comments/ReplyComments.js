@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import UserInterButtons from "../UserInterButtons";
+import UserInterButtons from "./UserInterButtons";
 const ReplyComments = ({
   SERVER_API,
   getReplyComments,
@@ -11,30 +11,33 @@ const ReplyComments = ({
   socket,
 }) => {
   useEffect(() => {
-    if (show.id) {
-      axios
-        .get(SERVER_API.get_reply_comments, {
-          params: {
-            showId: show.id,
-            category: type,
-            commentId: comment._id,
-          },
-        })
-        .then((response) => {
-          if (response.data.error) {
-          } else {
-            setGetReplyComments(response.data.data);
-          }
-        })
-        .catch((error) => console.log(error));
-    }
+    const fetchReplyComments = async () => {
+      if (show.id) {
+        await axios
+          .get(SERVER_API.get_reply_comments, {
+            params: {
+              showId: show.id,
+              category: type,
+              commentId: comment._id,
+            },
+          })
+          .then((response) => {
+            if (response.data.error) {
+            } else {
+              setGetReplyComments(response.data.data);
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    };
+    fetchReplyComments();
   }, [show._id, type, comment._id]);
 
   useEffect(() => {
     socket.on("new-reply-comments", (newComments) => {
       setGetReplyComments(newComments);
     });
-  }, [show._id, type, comment._id]);
+  }, [show._id, type, comment._id, socket, getReplyComments]);
 
   return (
     <div className="reply-comments">

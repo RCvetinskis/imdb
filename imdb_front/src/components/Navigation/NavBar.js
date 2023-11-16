@@ -10,7 +10,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const currentLocation = useLocation();
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
-  const { user, setUser, setShowLogin } = useContext(mainContext);
+  const { user, setUser, setOpenLogin } = useContext(mainContext);
   const [accMenuIsOpen, setAccMenuIsOpen] = useState(false);
   const defaultOptions = [
     {
@@ -68,7 +68,7 @@ const NavBar = () => {
           path: null,
           className: "fa-solid fa-right-to-bracket",
           execute() {
-            setShowLogin(true);
+            setOpenLogin(true);
           },
         },
   ];

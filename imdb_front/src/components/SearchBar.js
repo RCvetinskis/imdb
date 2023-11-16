@@ -4,12 +4,14 @@ const SearchBar = () => {
   const inputRef = useRef();
   const nav = useNavigate();
 
-  const handleSearchClick = () => {
+  const handleSearchClick = (e) => {
+    e.preventDefault();
     nav(`search/${inputRef.current.value}?page=1`);
     inputRef.current.value = "";
   };
+
   return (
-    <div className="search-container">
+    <form onSubmit={handleSearchClick} className="search-container">
       <div className="input-container">
         <input
           placeholder="Search"
@@ -20,10 +22,10 @@ const SearchBar = () => {
         <i className="fa-solid fa-magnifying-glass"></i>
       </div>
 
-      <button onClick={() => handleSearchClick()} className="search-btn">
+      <button type="submit" className="search-btn">
         Search
       </button>
-    </div>
+    </form>
   );
 };
 

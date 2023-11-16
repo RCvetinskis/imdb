@@ -1,10 +1,13 @@
 import React from "react";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, imagePreview }) => {
   return (
     <div className="user-card">
       <div className="img-container">
-        <img src={user.avatar} alt={user.username} />
+        <img
+          src={imagePreview ? imagePreview : user.avatar}
+          alt={user.username}
+        />
       </div>
       <div className="text-container">
         <p>

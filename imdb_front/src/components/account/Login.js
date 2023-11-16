@@ -7,12 +7,11 @@ import { SERVER_API } from "../../utilities/APIS";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const { showLogin, setShowLogin } = useContext(mainContext);
+  const { openLogin, setOpenLogin } = useContext(mainContext);
   const [registerModal, setRegisterModal] = useState(false);
   const [inputData, setInputData] = useState({
     email: "",
     password: "",
-    stayOn: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -37,7 +36,7 @@ const Login = () => {
             setErrorMsg(response.data.message);
           } else {
             setUser(response.data.data);
-            setShowLogin(false);
+            setOpenLogin(false);
             nav("/Settings");
           }
         })
@@ -47,47 +46,56 @@ const Login = () => {
 
   return (
     <div className="form-modal-screen">
-      <div className="form-container">
-        <i
-          onClick={() => setShowLogin(!showLogin)}
-          className="fa-solid fa-x"
-        ></i>
-        <form className="form" onSubmit={handleSubmit}>
-          <Input
-            inputData={inputData}
-            setInputData={setInputData}
-            type="email"
-            placeholder="email"
-            name="email"
-          />
+      <i onClick={() => setOpenLogin(!openLogin)} className="fa-solid fa-x"></i>
+      {registerModal ? (
+        <Register
+          setRegisterModal={setRegisterModal}
+          setIsFormValid={setIsFormValid}
+          isFormValid={isFormValid}
+          errorMsg={errorMsg}
+          setErrorMsg={setErrorMsg}
+        />
+      ) : (
+        <div className="form-container">
+          <form className="form" onSubmit={handleSubmit}>
+            <Input
+              inputData={inputData}
+              setInputData={setInputData}
+              type="email"
+              placeholder="Email"
+              name="email"
+            />
 
-          <Input
-            inputData={inputData}
-            setInputData={setInputData}
-            type="password"
-            placeholder="password"
-            name="password"
-          />
+            <Input
+              inputData={inputData}
+              setInputData={setInputData}
+              type="password"
+              placeholder="Password"
+              name="password"
+            />
 
-          <button type="submit" className="form-btn">
-            Login
-          </button>
-        </form>
-        <div className="error-container">
-          <ErrorMsg
-            errorMsg={errorMsg}
-            setErrorMsg={setErrorMsg}
-            type="login"
-            data={inputData}
-            setIsFormValid={setIsFormValid}
-          />
+            <button type="submit" className="form-btn">
+              Login
+            </button>
+          </form>
+          <div className="error-container">
+            <ErrorMsg
+              errorMsg={errorMsg}
+              setErrorMsg={setErrorMsg}
+              type="login"
+              data={inputData}
+              setIsFormValid={setIsFormValid}
+            />
+          </div>
+
+          <footer className="form-footer">
+            <p>Don't have an account?</p>
+            <button onClick={() => setRegisterModal(true)} className="form-btn">
+              Register
+            </button>
+          </footer>
         </div>
-
-        <footer className="form-footer">
-          <p>Don't have an account?</p>
-          <button className="form-btn">Register</button>
-        </footer>
-      </div>
+      )}
     </div>
   );
 };

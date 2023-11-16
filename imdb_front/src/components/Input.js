@@ -16,6 +16,7 @@ const Input = ({ type, placeholder, inputData, setInputData, name }) => {
         name={name}
         type={type}
         placeholder={placeholder}
+        autoComplete="on"
       />
     </>
   );

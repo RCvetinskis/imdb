@@ -6,7 +6,6 @@ const Comment = ({
   user,
   type,
   SERVER_API,
-  setGetComments,
   commentId,
   category,
   replyingToId,

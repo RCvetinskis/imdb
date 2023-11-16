@@ -6,8 +6,6 @@ import { SERVER_API } from "../../utilities/APIS";
 
 const Register = ({
   setRegisterModal,
-  showLogin,
-  setShowLogin,
   setIsFormValid,
   isFormValid,
   errorMsg,
@@ -20,7 +18,8 @@ const Register = ({
     confirmPassword: "",
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (isFormValid) {
       await axios
         .post(SERVER_API.register, {
@@ -43,58 +42,56 @@ const Register = ({
   };
   return (
     <>
-      <div className="form-modal-content">
-        <i
-          onClick={() => setShowLogin(!showLogin)}
-          className="fa-solid fa-x"
-        ></i>
-        <div className="inputs-container">
+      <div className="form-container">
+        <form className="form" onSubmit={handleSubmit}>
           <Input
             inputData={inputData}
             setInputData={setInputData}
             type={"username"}
-            placeholder={"username"}
+            placeholder={"Username"}
             name="username"
           />
           <Input
             inputData={inputData}
             setInputData={setInputData}
             type={"email"}
-            placeholder={"email"}
+            placeholder={"Email"}
             name="email"
           />
           <Input
             inputData={inputData}
             setInputData={setInputData}
             type={"password"}
-            placeholder={"password"}
+            placeholder={"Password"}
             name="password"
           />
           <Input
             inputData={inputData}
             setInputData={setInputData}
             type={"password"}
-            placeholder={"repeat password"}
+            placeholder={"Repeat Password"}
             name="confirmPassword"
           />
+
+          <button type="submit" className="form-btn">
+            Register
+          </button>
+        </form>
+        <div className="error-container">
           <ErrorMsg
             errorMsg={errorMsg}
             setErrorMsg={setErrorMsg}
-            type={"register"}
+            type="register"
             data={inputData}
             setIsFormValid={setIsFormValid}
           />
-          <button onClick={handleSubmit} className="btn">
-            Register
-          </button>
         </div>
-
-        <div className="btn-register-container">
-          <h2>Already have an account?</h2>
-          <button onClick={() => setRegisterModal(false)} className="btn">
+        <footer className="form-footer">
+          <p>Already have an accout?</p>
+          <button onClick={() => setRegisterModal(false)} className="form-btn">
             Login
           </button>
-        </div>
+        </footer>
       </div>
     </>
   );

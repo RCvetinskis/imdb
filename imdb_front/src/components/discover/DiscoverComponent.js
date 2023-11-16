@@ -10,7 +10,6 @@ import { useLocation, useSearchParams } from "react-router-dom";
 const DiscoverComponent = ({ type }) => {
   const location = useLocation();
   const pathname = location.pathname;
-
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParamsString = new URLSearchParams(searchParams).toString();
   const API = TMDB_API.discover(
@@ -18,6 +17,7 @@ const DiscoverComponent = ({ type }) => {
   );
   // options for select
   const genres = useGenres(type);
+
   const sortOptions = useSortOptions();
 
   // change params on page click

@@ -4,7 +4,7 @@ import axios from "axios";
 import Comment from "./Comment";
 import ReplyComments from "./ReplyComments";
 import mainContext from "../../context/MainContext";
-import UserInterButtons from "../UserInterButtons";
+import UserInterButtons from "./UserInterButtons";
 const Comments = ({ user, type, show }) => {
   const { socket } = useContext(mainContext);
   const [getComments, setGetComments] = useState([]);
@@ -13,27 +13,25 @@ const Comments = ({ user, type, show }) => {
   const [selectedCommentForReply, setSelectedCommentForReply] = useState(null);
   const commentsContainerRef = useRef(null);
 
-  // display replays length
-  const loadComments = async () => {
-    if (show.id) {
-      await axios
-        .get(SERVER_API.get_comments, {
-          params: {
-            showId: show.id,
-            category: type,
-          },
-        })
-        .then((response) => {
-          if (response.data.error) {
-          } else {
-            setGetComments(response.data.data);
-          }
-        })
-        .catch((error) => console.log(error));
-    }
-  };
-
   useEffect(() => {
+    const loadComments = async () => {
+      if (show.id) {
+        await axios
+          .get(SERVER_API.get_comments, {
+            params: {
+              showId: show.id,
+              category: type,
+            },
+          })
+          .then((response) => {
+            if (response.data.error) {
+            } else {
+              setGetComments(response.data.data);
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    };
     loadComments();
     socket.on("new-comments", (newComments) => {
       setGetComments(newComments);
@@ -135,9 +133,7 @@ const Comments = ({ user, type, show }) => {
         category={type}
         show={show}
         user={user}
-        setGetComments={setGetComments}
         SERVER_API={SERVER_API}
-        getReplyComments={getReplyComments}
         socket={socket}
       />
     </div>

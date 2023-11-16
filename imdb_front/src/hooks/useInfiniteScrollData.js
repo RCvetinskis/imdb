@@ -22,7 +22,7 @@ const useInfiniteScrollData = (
             setGetMoreData({ ...data });
             setPage(newPage);
           })
-          .then((error) => {
+          .catch((error) => {
             console.log(error);
           });
       }

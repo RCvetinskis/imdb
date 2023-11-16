@@ -10,7 +10,6 @@ import { routes, accountRoutes, rootRoute } from "./utilities/routes";
 import LoadingScreen from "./components/loading/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// throttle login/register, create new design for register/login modal
 // add rating and displayer total rating and your rating with stars, on hover show your rating
 // implement modal for disliked movies/show
 // create episode page
@@ -18,17 +17,18 @@ import "react-toastify/dist/ReactToastify.css";
 // choose language
 // create better comment section
 // finish some styling with few animations
+// for comment replys length send it from replyComments api so on socket user will see updated length
 const socket = io.connect("http://localhost:4000");
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loadingData, setLoadingData] = useState(false);
 
   const values = {
     socket,
-    showLogin,
-    setShowLogin,
+    openLogin,
+    setOpenLogin,
     user,
     setUser,
     toast,
@@ -64,7 +64,7 @@ function App() {
           <LoadingScreen />
         ) : (
           <>
-            {showLogin && <Login />}
+            {openLogin && <Login />}
             <ToastContainer />
             <Header />
             <div className="container m-5">

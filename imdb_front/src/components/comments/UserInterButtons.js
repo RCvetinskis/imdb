@@ -6,8 +6,6 @@ const UserInterButtons = ({
   openReplies,
   toggleReplyInput,
 }) => {
-  // create logic for reply user of replied comment
-
   return (
     <div className="btns-container">
       <button className="btn">

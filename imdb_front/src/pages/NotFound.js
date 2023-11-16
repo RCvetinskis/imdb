@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 const NotFound = () => {
   const navigate = useNavigate();
   setTimeout(() => {
-    navigate("./home");
+    navigate("/home");
   }, 1000);
-  return <div>PAGE NOT FOUND</div>;
+  return (
+    <div className="text-red-500 text-8xl text-center ">PAGE NOT FOUND</div>
+  );
 };
 
 export default NotFound;

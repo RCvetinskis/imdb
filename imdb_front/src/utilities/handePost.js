@@ -1,7 +1,7 @@
 import axios from "axios";
 import { throttle } from "lodash";
 const handePost = throttle(
-  (
+  async (
     API,
     commentObject,
     setComment,
@@ -9,7 +9,7 @@ const handePost = throttle(
     switchToComment,
     toggleReplyInput
   ) => {
-    axios
+    await axios
       .post(API, commentObject)
       .then((response) => {
         if (response.data.error) {

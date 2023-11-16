@@ -1,0 +1,97 @@
+.account-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  .user-card-container {
+    flex: 1;
+
+    .user-card {
+      background-color: #1f1f1f;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      .img-container {
+        margin-bottom: 20px;
+        img {
+          border-radius: 50%;
+          margin: auto;
+          min-height: 300px;
+          width: 300px;
+        }
+      }
+
+      .text-container {
+        font-size: 16px;
+      }
+
+      .text-container p {
+        margin-bottom: 10px;
+      }
+
+      .text-container span {
+        font-weight: bold;
+        color: $gold;
+      }
+    }
+  }
+
+  .form-container {
+    flex: 2;
+    .form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .acc-input {
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid $light-grey;
+      border-radius: 5px;
+      background-color: transparent;
+      color: white;
+    }
+
+    label {
+      margin-bottom: 5px;
+      color: $gold;
+    }
+
+    .settings-btn {
+      @include settingsBtn;
+    }
+
+    .image-input-container {
+      .inputs-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .file-container {
+          .file-input {
+            display: none;
+          }
+          .file-input-label {
+            @include settingsBtn;
+          }
+        }
+        .url-container {
+          flex: 2;
+          .acc-input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 800px) {
+    flex-direction: column;
+    .user-card-container,
+    .form-container {
+      width: 100%;
+    }
+  }
+}

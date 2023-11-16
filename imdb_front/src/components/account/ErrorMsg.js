@@ -3,47 +3,59 @@ import React, { useEffect } from "react";
 const ErrorMsg = ({ data, setIsFormValid, type, errorMsg, setErrorMsg }) => {
   const emailValidRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  const loginErrorMsg = {
+  const imageRegex = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gim;
+  const errorMessages = {
     email: "Email adress is not valid",
     username: "Username min length 5",
     password: "Password min length 5",
     confirmPassword: "Password should match",
-    serverSide: "User not found",
+    avatar: "Avatar url should be image",
   };
 
   useEffect(() => {
-    if (type === "login") {
-      if (!data.email.match(emailValidRegex)) {
-        setIsFormValid(false);
-        setErrorMsg(loginErrorMsg.email);
-      } else if (data.password.length <= 4) {
-        setIsFormValid(false);
-        setErrorMsg(loginErrorMsg.password);
-      } else {
+    function setError(errorObject) {
+      console.log(errorObject);
+      if (!errorObject) {
         setIsFormValid(true);
         setErrorMsg("");
+      } else {
+        setIsFormValid(false);
+        setErrorMsg(errorObject);
       }
-    } else if (type === "register") {
+    }
+    function repetetiveErrors() {
       if (!data.email.match(emailValidRegex)) {
-        setIsFormValid(false);
-        setErrorMsg(loginErrorMsg.email);
+        setError(errorMessages.email);
       } else if (data.password.length <= 4) {
-        setIsFormValid(false);
-        setErrorMsg(loginErrorMsg.password);
+        setError(errorMessages.password);
       } else if (data.password !== data.confirmPassword) {
-        setIsFormValid(false);
-        setErrorMsg(loginErrorMsg.confirmPassword);
+        setError(errorMessages.confirmPassword);
       } else if (data.username.length <= 4) {
-        setIsFormValid(false);
-        setErrorMsg(loginErrorMsg.username);
+        setError(errorMessages.username);
       } else {
-        setIsFormValid(true);
-        setErrorMsg("");
+        setError();
       }
+    }
+    // if (type === "login") {
+    //   if (!data.email.match(emailValidRegex)) {
+    //     setError(errorMessages.email);
+    //   } else if (data.password.length <= 4) {
+    //     setError(errorMessages.password);
+    //   } else {
+    //     setError();
+    //   }
+    // } else if (type === "register") {
+    //   repetetiveErrors();
+    // } else if (type === "settings") {
+
+    if (!data.avatar.trim().startsWith("data:image/png")) {
+      setError(errorMessages.avatar);
+    } else {
+      setError();
     }
   }, [data]);
 
-  return <div className="error  text-red-500">{errorMsg}</div>;
+  return <div className="error text-red-500 ">{errorMsg}</div>;
 };
 
 export default ErrorMsg;

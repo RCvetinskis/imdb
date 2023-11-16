@@ -21,7 +21,6 @@ const useGetUserShows = (url) => {
         setLoadingData(true);
         const { data } = await axios.get(url);
         if (!data.error) {
-          setData(data.data);
           setData((prev) => ({
             ...prev,
             results: data.data.results,
@@ -34,7 +33,7 @@ const useGetUserShows = (url) => {
             first_air_date_year: data.data.first_air_date_year,
           }));
         } else {
-          console.log(data.data.message);
+          console.log(data.message);
         }
       } catch (error) {
         console.log(error);
