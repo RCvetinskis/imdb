@@ -1,25 +1,26 @@
 import React from "react";
-import useGetDataTMDB from "../../hooks/useGetDataTMDB";
+import useGetData from "../../hooks/useGetData";
 import Card from "../Card";
 import Pagination from "../Pagination";
 import LoadingScreen from "../../components/loading/LoadingScreen";
+
 const DiscoverSection = ({ API, type, handlePageClick, searchParams }) => {
-  const data = useGetDataTMDB(API);
+  const { results, isLoading, total_pages } = useGetData(API);
   const pageParams = Number(searchParams.get("page"));
 
   return (
     <div className="discover-container">
-      {data.isLoading ? (
+      {isLoading ? (
         <LoadingScreen />
       ) : (
         <>
           <div className="flex flex-wrap gap-5 justify-center">
-            {data.results.map((show) => (
+            {results.map((show) => (
               <Card key={show.id} item={show} type={type} />
             ))}
           </div>
           <Pagination
-            pageCount={data.total_pages >= 500 ? 500 : data.total_pages}
+            pageCount={total_pages >= 500 ? 500 : total_pages}
             handlePageClick={handlePageClick}
             pageParams={pageParams}
           />

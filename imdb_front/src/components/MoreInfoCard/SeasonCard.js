@@ -1,14 +1,16 @@
 import React from "react";
 import { classNameRating } from "../../utilities/designFunctions";
-const SeasonCard = ({ season }) => {
+import { Link } from "react-router-dom";
+const SeasonCard = ({ showId, season }) => {
   const imgLink = "https://image.tmdb.org/t/p/original/";
+
   return (
     <div className="season-card card">
-      <div className="img-container">
+      <Link to={`/tv/${showId}/season/${season.season_number}`}>
         {season.poster_path && (
           <img src={imgLink + season.poster_path} alt={season.name} />
         )}
-      </div>
+      </Link>
       <div className="card-info">
         <p className="title">{season.name}</p>
         <p className="season-no">Season:{season.season_number}</p>

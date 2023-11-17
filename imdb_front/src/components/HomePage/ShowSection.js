@@ -1,11 +1,13 @@
 import React, { useState, useRef } from "react";
-import useGetDataTMDB from "../../hooks/useGetDataTMDB";
 import Card from "../Card";
 import useInfiniteScrollData from "../../hooks/useInfiniteScrollData";
 import LoadingScreen from "../loading/LoadingScreen";
+import useGetData from "../../hooks/useGetData";
 const ShowSection = ({ API, type, header }) => {
   const [page, setPage] = useState(1);
-  const data = useGetDataTMDB(API, 1);
+
+  const data = useGetData(API);
+
   const containerRef = useRef(null);
 
   useInfiniteScrollData(

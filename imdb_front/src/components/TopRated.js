@@ -2,17 +2,19 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination";
 import Card from "./Card";
-import useGenres from "../hooks/useGenres";
 import { setGenreNames } from "../utilities/setGenreNames";
 import Genres from "./Genres";
-import useGetDataTMDB from "../hooks/useGetDataTMDB";
+import useGetData from "../hooks/useGetData";
 import { TMDB_API } from "../utilities/APIS";
 import LoadingScreen from "../components/loading/LoadingScreen";
+import useGenres from "../hooks/useGenres";
 const TopRated = ({ type }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const page = Number(searchParams.get("page"));
   const API = TMDB_API.top(type, page ? page : 1);
-  const data = useGetDataTMDB(API, page);
+  const data = useGetData(API);
+
   const genres = useGenres(type);
   const dataToDisplayGenres = setGenreNames(data, genres);
 

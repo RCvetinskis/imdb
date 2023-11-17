@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { classNameRating } from "../utilities/designFunctions";
 import useGenres from "../hooks/useGenres";
 import { setGenreNames } from "../utilities/setGenreNames";
+import mainContext from "../context/MainContext";
 const Card = ({ item, type }) => {
-  const imgLink = "https://image.tmdb.org/t/p/original/";
+  const { imgLink } = useContext(mainContext);
 
   const genres = useGenres(type);
-  const show = setGenreNames(item, genres);
+  const show = useMemo(() => setGenreNames(item, genres), [genres]);
 
   return (
     <div className="card">

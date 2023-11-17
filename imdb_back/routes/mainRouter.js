@@ -8,6 +8,7 @@ const {
   handle_show_like,
   handle_show_dislike,
   handle_show_seen,
+  update_user,
 } = require("../controllers/userController");
 const {
   validateRegistration,
@@ -15,6 +16,7 @@ const {
   validateHandleShowLike,
   validateHandleShowDislike,
   validateHandleShowSeen,
+  validateUpdateUser,
 } = require("../middleware/userValidator");
 const { add_show, user_shows_list } = require("../controllers/showsController");
 const {
@@ -35,6 +37,7 @@ router.post("/register", validateRegistration, register);
 router.post("/login", validateLogin, login);
 router.get("/authorized", authorized);
 router.get("/logout", logout);
+router.put("/update_user", validateUpdateUser, update_user);
 
 // User Show Interaction
 router.post("/handle_show_like", validateHandleShowLike, handle_show_like);

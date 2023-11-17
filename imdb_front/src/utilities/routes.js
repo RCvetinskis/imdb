@@ -12,6 +12,8 @@ import TopRatedMovies from "../pages/topRated/TopRatedMovies";
 import TopRatedTv from "../pages/topRated/TopRatedTv";
 import SeenTvPage from "../pages/accPages/SeenTvPage";
 import SeenMoviesPage from "../pages/accPages/SeenMoviesPage";
+import EpisodePage from "../pages/EpisodePage";
+import SeasonPage from "../pages/SeasonPage";
 
 const rootRoute = { path: "/", element: <MainPage /> };
 const routes = [
@@ -22,6 +24,14 @@ const routes = [
   { path: "/discover/tv", element: <DiscoverTv /> },
   { path: "/movie/:movieId", element: <MoviePage /> },
   { path: "/tv/:tvId", element: <TvPage /> },
+  {
+    path: "/tv/:tvId/season/:seasonNo",
+    element: <SeasonPage />,
+  },
+  {
+    path: "/tv/:tvId/season/:seasonNo/episode/:episodeNo",
+    element: <EpisodePage />,
+  },
   { path: "/search/:title", element: <SearchPage /> },
   { path: "*", element: <NotFound /> },
 ];

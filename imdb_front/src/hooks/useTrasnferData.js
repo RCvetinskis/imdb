@@ -4,35 +4,36 @@ import { SERVER_API } from "../utilities/APIS";
 
 const useTransferData = (tmbdbApi, category, user) => {
   const [data, setData] = useState({
-    dynamicData: [],
+    results: [],
+    isLoading: true,
   });
 
   useEffect(() => {
-    // finds movie from tmbapi, saves to backend and from backend brings to frontend
-    const getAndTransferData = async () => {
-      await axios
-        .get(tmbdbApi)
-        .then(async (response) => {
-          const showData = await response.data;
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(tmbdbApi);
+        const showData = response.data;
 
-          await axios
-            .post(SERVER_API.add_show, {
-              category,
-              show: showData,
-              userId: user?._id,
-            })
-            .then(async (response) => {
-              if (response.data.error) {
-                console.log(response.data.message);
-              } else {
-                setData(response.data.data);
-              }
-            })
-            .catch((error) => console.log(error));
-        })
-        .catch((error) => console.log(error));
+        const backendResponse = await axios.post(SERVER_API.add_show, {
+          category,
+          show: showData,
+          userId: user?._id,
+        });
+
+        setData({
+          results: backendResponse.data.data,
+          isLoading: false,
+        });
+      } catch (error) {
+        setData({
+          results: [],
+          isLoading: false,
+        });
+        console.error(error);
+      }
     };
-    getAndTransferData();
+
+    fetchData();
   }, [tmbdbApi, category, user]);
 
   return data;

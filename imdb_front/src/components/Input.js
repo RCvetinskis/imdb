@@ -1,6 +1,13 @@
 import React from "react";
 
-const Input = ({ type, placeholder, inputData, setInputData, name }) => {
+const Input = ({
+  type,
+  placeholder,
+  inputData,
+  setInputData,
+  name,
+  autoComplete,
+}) => {
   const handleChange = (e) => {
     setInputData({
       ...inputData,
@@ -16,7 +23,7 @@ const Input = ({ type, placeholder, inputData, setInputData, name }) => {
         name={name}
         type={type}
         placeholder={placeholder}
-        autoComplete="on"
+        autoComplete={autoComplete}
       />
     </>
   );

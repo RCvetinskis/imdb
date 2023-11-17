@@ -50,6 +50,7 @@ const Register = ({
             type={"username"}
             placeholder={"Username"}
             name="username"
+            autoComplete={"new-password"}
           />
           <Input
             inputData={inputData}
@@ -57,6 +58,7 @@ const Register = ({
             type={"email"}
             placeholder={"Email"}
             name="email"
+            autoComplete={"new-password"}
           />
           <Input
             inputData={inputData}
@@ -64,6 +66,7 @@ const Register = ({
             type={"password"}
             placeholder={"Password"}
             name="password"
+            autoComplete={"new-password"}
           />
           <Input
             inputData={inputData}
@@ -71,6 +74,7 @@ const Register = ({
             type={"password"}
             placeholder={"Repeat Password"}
             name="confirmPassword"
+            autoComplete={"new-password"}
           />
 
           <button type="submit" className="form-btn">

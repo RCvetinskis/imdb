@@ -45,6 +45,23 @@ module.exports = {
     req.session.authorized = false;
     return response(res, "logout completed", true);
   },
+  update_user: async (req, res) => {
+    const { username, email, password, avatar, userId } = req.body;
+    const user = await returnOne(userId);
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.password = password || user.password;
+    user.avatar = avatar || user.avatar;
+    req.session.user = user;
+    req.session.save();
+    await user.save();
+    return response(
+      res,
+      "User has been updated",
+      false,
+      userObject(req.session.user)
+    );
+  },
   handle_show_like: async (req, res) => {
     // updates users likes and adds like too show
     const { userId, showId, category } = req.body;

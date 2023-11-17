@@ -64,6 +64,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
               name="email"
+              autoComplete={"on"}
             />
 
             <Input
@@ -72,6 +73,7 @@ const Login = () => {
               type="password"
               placeholder="Password"
               name="password"
+              autoComplete={"on"}
             />
 
             <button type="submit" className="form-btn">

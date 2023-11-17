@@ -24,10 +24,6 @@
         }
       }
 
-      .text-container {
-        font-size: 16px;
-      }
-
       .text-container p {
         margin-bottom: 10px;
       }
@@ -76,6 +72,14 @@
           }
           .file-input-label {
             @include settingsBtn;
+          }
+          .fa-x {
+            margin: 0 10px;
+            font-size: 12px;
+            &:hover {
+              cursor: pointer;
+              color: $gold;
+            }
           }
         }
         .url-container {

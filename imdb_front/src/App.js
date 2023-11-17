@@ -13,7 +13,6 @@ import "react-toastify/dist/ReactToastify.css";
 // add rating and displayer total rating and your rating with stars, on hover show your rating
 // implement modal for disliked movies/show
 // create episode page
-// at account settings implement changes for account, change picture,name,password,email
 // choose language
 // create better comment section
 // finish some styling with few animations
@@ -24,6 +23,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loadingData, setLoadingData] = useState(false);
+  const imgLink = "https://image.tmdb.org/t/p/original/";
 
   const values = {
     socket,
@@ -34,6 +34,7 @@ function App() {
     toast,
     loadingData,
     setLoadingData,
+    imgLink,
   };
   const initializeUser = async () => {
     try {
@@ -65,7 +66,12 @@ function App() {
         ) : (
           <>
             {openLogin && <Login />}
-            <ToastContainer />
+            <ToastContainer
+              position="top-center"
+              autoClose={2000}
+              theme="dark"
+              closeOnClick
+            />
             <Header />
             <div className="container m-5">
               <Routes>

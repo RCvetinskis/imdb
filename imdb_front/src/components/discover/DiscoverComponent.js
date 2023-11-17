@@ -4,8 +4,8 @@ import DiscoverSection from "./DiscoverSection";
 import FilterShows from "../FilterShows";
 import useSortOptions from "../../hooks/useSortOptions";
 import Genres from "../Genres";
-import useGenres from "../../hooks/useGenres";
 import { useLocation, useSearchParams } from "react-router-dom";
+import useGenres from "../../hooks/useGenres";
 
 const DiscoverComponent = ({ type }) => {
   const location = useLocation();

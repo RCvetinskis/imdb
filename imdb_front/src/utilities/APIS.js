@@ -32,6 +32,9 @@ const TMDB_API = {
     return `${enviroment}${pathname}&${API_KEY}`;
   },
   languageCodes: `${enviroment}/configuration/languages?&${API_KEY}`,
+  season(pathname) {
+    return `${enviroment}${pathname}&${API_KEY}`;
+  },
 };
 const SERVER_API = {
   // User Authentication
@@ -39,6 +42,7 @@ const SERVER_API = {
   login: serverEnviroment + "login",
   authorized: serverEnviroment + "authorized",
   logout: serverEnviroment + "logout",
+  update_user: serverEnviroment + "update_user",
 
   // User Show Interaction
   handle_show_like: serverEnviroment + "handle_show_like",
