@@ -13,11 +13,12 @@ import "react-toastify/dist/ReactToastify.css";
 // add rating and displayer total rating and your rating with stars, on hover show your rating
 // implement modal for disliked movies/show
 // create episode page
+// implement notifications for incoming episodes if user pressed notify bell
 // choose language
 // create better comment section
 // finish some styling with few animations
 // for comment replys length send it from replyComments api so on socket user will see updated length
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("http://localhost:4001");
 function App() {
   const [openLogin, setOpenLogin] = useState(false);
   const [user, setUser] = useState(null);
@@ -44,8 +45,6 @@ function App() {
 
       if (!data.error) {
         setUser(data.data);
-      } else {
-        console.log("no user seasion is found");
       }
     } catch (error) {
       console.error("Failed to initialize user:", error);

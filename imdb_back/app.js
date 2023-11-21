@@ -4,9 +4,9 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const http = require("http").createServer(app);
+require("dotenv").config();
 const mainRouter = require("./routes/mainRouter");
 const port = process.env.DEV_PORT || 4000;
-require("dotenv").config();
 require("./module/socket")(http);
 
 mongoose

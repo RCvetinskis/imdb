@@ -1,6 +1,6 @@
 const enviroment = "https://api.themoviedb.org/3";
 const API_KEY = "api_key=2bccfb8c7fb0ea3f83a200245e5031fc";
-const serverEnviroment = "http://localhost:4000/";
+const serverEnviroment = "http://localhost:4001/";
 
 const TMDB_API = {
   popular(type) {

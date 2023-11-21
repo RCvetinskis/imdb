@@ -42,10 +42,11 @@ module.exports = {
   },
   validateUpdateUser: async (req, res, next) => {
     const { username, email, password, avatar, userId } = req.body;
+    const file = req.file;
 
     if (!userId) return response(res, "users not found", true);
 
-    if (!username && !email && !password && !avatar)
+    if (!username && !email && !password && !avatar && !file)
       return response(res, "No new values were sent", true);
 
     const user = await returnOne(userId);

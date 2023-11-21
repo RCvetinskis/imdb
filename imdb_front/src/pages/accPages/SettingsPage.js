@@ -26,18 +26,17 @@ const SettingsPage = () => {
       setErrorMsg("no new values has been added");
     } else {
       if (isFormValid) {
+        const formData = new FormData();
+        formData.append("email", inputData.email);
+        formData.append("username", inputData.username);
+        formData.append("password", inputData.password);
+        formData.append("avatar", inputData.avatar);
+        formData.append("userId", user._id);
         try {
-          const { data } = await axios.put(
-            SERVER_API.update_user,
-            {
-              email: inputData.email,
-              username: inputData.username,
-              password: inputData.password,
-              avatar: inputData.avatar,
-              userId: user._id,
-            },
-            { withCredentials: true }
-          );
+          const { data } = await axios.put(SERVER_API.update_user, formData, {
+            withCredentials: true,
+            headers: { "Content-Type": "multipart/form-data" },
+          });
           if (data.error) {
             setErrorMsg(data.message);
           } else {

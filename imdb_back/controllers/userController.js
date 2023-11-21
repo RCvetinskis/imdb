@@ -3,6 +3,10 @@ const userDb = require("../Schemas/imdbUserSchema");
 const bcrypt = require("bcrypt");
 const returnOne = require("../module/returnOne");
 const userObject = require("../module/user");
+const { uploadFile, getFileUrl } = require("../s3");
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
 module.exports = {
   register: async (req, res) => {
     const { username, email, password } = req.body;
@@ -47,11 +51,23 @@ module.exports = {
   },
   update_user: async (req, res) => {
     const { username, email, password, avatar, userId } = req.body;
+
     const user = await returnOne(userId);
     user.username = username || user.username;
     user.email = email || user.email;
     user.password = password || user.password;
     user.avatar = avatar || user.avatar;
+
+    const file = req.file;
+    if (file) {
+      const result = await uploadFile(file);
+      await unlinkFile(file.path);
+
+      if (result) {
+        const fileUrl = getFileUrl(result.Key);
+        user.avatar = fileUrl;
+      }
+    }
     req.session.user = user;
     req.session.save();
     await user.save();

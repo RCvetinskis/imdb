@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: "uploads/avatars" });
 const {
   register,
   login,
@@ -32,12 +34,18 @@ const {
   validateReplyComment,
   validateGetReplyComments,
 } = require("../middleware/userEngagementValidator");
+
 // User Authentication
 router.post("/register", validateRegistration, register);
 router.post("/login", validateLogin, login);
 router.get("/authorized", authorized);
 router.get("/logout", logout);
-router.put("/update_user", validateUpdateUser, update_user);
+router.put(
+  "/update_user",
+  upload.single("avatar"),
+  validateUpdateUser,
+  update_user
+);
 
 // User Show Interaction
 router.post("/handle_show_like", validateHandleShowLike, handle_show_like);

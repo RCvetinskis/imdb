@@ -29,11 +29,11 @@ const ImageInput = ({
 
         reader.onloadend = () => {
           setImagePreview(reader.result);
-          setInputData({
-            ...inputData,
-            [name]: reader.result,
-          });
         };
+        setInputData({
+          ...inputData,
+          [name]: file,
+        });
         setErrorMsg("");
         setUrlInputValue("");
         reader.readAsDataURL(file);
